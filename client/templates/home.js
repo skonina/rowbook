@@ -31,10 +31,35 @@ AccountsTemplates.addField({
 //     Meteor.subscribe('limit');
     
 // });
+
+Template.body.helpers({
+
+    users: function () {
+      return Meteor.users.find();
+    },
+
+    initCollapsible: function () {
+        $('.collapsible').collapsible();
+        console.log("Collapsible ON!");
+    },
+
+    boats: function () {
+        return Boats.find();
+    },
+
+    groups: function () {
+        return Groups.find();
+    },
+
+    events: function () {
+        return Events.find();
+    },
+
+    peopleInGroup: function (a) {
+        return Groups.findOne(a).fetch();
+    },
+
     
+});
 
-
-    // var calendar = new GAPI.Calendar('<766997000709-cogelu7ci0k8436qsjsp63jb7arbs8jo.apps.googleusercontent.com>');
-    // calendar.get_content(function(content) {
-    //     console.log(content);
-    // });
+    

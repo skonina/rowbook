@@ -29,3 +29,6 @@ brylie:first-user-admin
 
 autopublish             # Publish all data to the clients (for prototyping)
 insecure                # Allow all DB writes from clients (for prototyping)
+aldeed:collection2
+aldeed:autoform-select2
+natestrauser:select2

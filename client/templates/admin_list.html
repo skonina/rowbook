@@ -1,0 +1,160 @@
+<template name="user">
+	<li>
+  		<div class="collapsible-header"><i class="material-icons left">perm_identity</i>{{profile.name}}</div>
+  		<div class="collapsible-body">
+			<!-- ID: {{_id}} -->
+			<!-- <p>Google mail: {{services.google.email}}</p> -->
+			<!-- <p>Facebook mail: {{services.facebook.email}}</p> -->
+			<p>Mail: {{email}}</p>
+			<br />
+			<a id="user-remove" class="waves-effect btn"><i class="material-icons left">not_interested</i>Remove user</a>
+
+			<a id="user-restart" class="waves-effect btn"><i class="material-icons left">not_interested</i>Free user to change choices</a>
+
+			<a id="user-admin" class="waves-effect btn"><i class="material-icons left">grade</i>Give admin privileges</a>
+
+			<br /><br />
+			
+			<!-- 	</div>
+			</div> -->
+		</div>
+  	</li>
+</template>
+
+<template name="boat">
+	<li>
+  		<div class="collapsible-header"><i class="material-icons left">perm_identity</i>{{name}}</div>
+  		<div class="collapsible-body">
+			<p>Description: {{description}}</p> <br />
+			<p>Capacity: {{capacity}}</p> <br />
+			<a id="boat-remove" class="waves-effect btn"><i class="material-icons left">not_interested</i>Remove boat</a>
+			<br /><br />
+		</div>
+  	</li>
+</template>
+
+
+<template name="group">
+	<li>
+  		<div class="collapsible-header"><i class="material-icons left">perm_identity</i>{{name}}</div>
+  		<div class="collapsible-body">
+			<p>Description: {{description}}</p> <br />
+			<div class="card">
+               <div class="card-content">
+                   <span class="card-title">Users list</span>
+                   <br />
+                   <ul class="collapsible z-depth-0" style="border-style: none;">
+						{{#each peopleInGroup}}
+							{{> user}}
+						{{/each}}
+					 </ul>
+	            </div>
+	        </div>
+			<a id="group-remove" class="waves-effect btn"><i class="material-icons left">not_interested</i>Remove group</a>
+			<br /><br />
+		</div>
+  	</li>
+</template>
+
+
+<template name="events">
+	<li>
+  		<div class="collapsible-header"><i class="material-icons left">perm_identity</i>{{date}}</div>
+  		<div class="collapsible-body">
+			<a id="event-remove" class="waves-effect btn"><i class="material-icons left">not_interested</i>Remove event</a>
+			<br /><br />
+		</div>
+  	</li>
+</template>
+
+<template name="usersList">
+	<div class="card">
+	               <div class="card-content">
+	                   <span class="card-title">Users list</span>
+	                   <br />
+	                   <ul class="collapsible z-depth-0" style="border-style: none;">
+	                     {{#each users}}
+	                       {{> user}}
+	                     {{/each}}
+	                   </ul>
+	                 </div>
+	             </div>
+</template>
+
+<template name="boatsList">
+	<div class="card">
+	               <div class="card-content">
+	                   <span class="card-title">Boats list</span>
+	                   <br />
+
+	                	<div class="card">
+	                		<div class="card-content">
+	                			<span class="card-title">Add boat</span>
+	                			{{> insertBoatForm}}
+	                		</div>
+	                	</div>
+
+	                   <ul class="collapsible z-depth-0" style="border-style: none;">
+	                     {{#each boats}}
+	                       {{> boat}}
+	                     {{/each}}
+	                   </ul>
+	                 </div>
+	             </div>
+</template>
+
+<template name="groupsList">
+	<div class="card">
+	               <div class="card-content">
+	                   <span class="card-title">Groups list</span>
+	                   <br />
+
+	                   <div class="card">
+	                		<div class="card-content">
+	                			<span class="card-title">Add group</span>
+	                			{{> insertGroupForm}}
+	                		</div>
+	                	</div>
+
+	                   <ul class="collapsible z-depth-0" style="border-style: none;">
+	                     {{#each groups}}
+	                       {{> group}}
+	                     {{/each}}
+	                   </ul>
+	                 </div>
+	             </div>
+</template>
+
+<template name="eventsList">
+	<div class="card">
+	               <div class="card-content">
+	                   <span class="card-title">Events list</span>
+	                   <br />
+
+	                   <div class="card">
+	                   	<div class="card-content">
+	                   		<span class="card-title">Add event</span>
+	                   		{{> insertEventForm}}
+	                   	</div>
+	                   </div>
+
+	                   <ul class="collapsible z-depth-0" style="border-style: none;">
+	                     {{#each events}}
+	                       {{> event}}
+	                     {{/each}}
+	                   </ul>
+	                 </div>
+	             </div>
+</template>
+
+<template name="insertBoatForm">
+   {{> quickForm collection="Boats" id="insertBoatForm" type="insert"}}
+</template>
+
+<template name="insertGroupForm">
+   {{> quickForm collection="Groups" id="insertGroupForm" type="insert"}}
+</template>
+
+<template name="insertEventForm">
+   {{> quickForm collection="Events" id="insertEventForm" type="insert"}}
+</template>

@@ -1,3 +1,5 @@
+
+AutoForm.setDefaultTemplate('materialize');
 AccountsTemplates.addField({
         _id: 'name',
         type: 'text',
@@ -32,34 +34,31 @@ AccountsTemplates.addField({
     
 // });
 
-Template.body.helpers({
 
-    users: function () {
-      return Meteor.users.find();
-    },
 
-    initCollapsible: function () {
-        $('.collapsible').collapsible();
-        console.log("Collapsible ON!");
-    },
 
-    boats: function () {
-        return Boats.find();
-    },
+// UI.registerHelper("users", function () {
+//   return Meteor.users.find();
+// }),
 
-    groups: function () {
-        return Groups.find();
-    },
+// UI.registerHelper("initCollapsible", function () {
+//     $('.collapsible').collapsible();
+//     console.log("Collapsible ON!");
+// }),
 
-    events: function () {
-        return Events.find();
-    },
+// UI.registerHelper("boats", function () {
+//     return Boats.find();
+// }),
 
-    peopleInGroup: function (a) {
-        return Groups.findOne(a).fetch();
-    },
+// UI.registerHelper("groups", function () {
+//     return Groups.find();
+// }),
 
-    
-});
+// UI.registerHelper("events", function () {
+//     return Events.find();
+// }),
 
+// UI.registerHelper("peopleInGroup", function (a) {
+//     return Groups.findOne(a).fetch();
+// })
     

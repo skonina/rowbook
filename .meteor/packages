@@ -32,3 +32,6 @@ insecure                # Allow all DB writes from clients (for prototyping)
 aldeed:collection2
 aldeed:autoform-select2
 natestrauser:select2
+aldeed:autoform
+gildaspk:autoform-materialize
+iron:router

@@ -235,6 +235,31 @@ Meteor.methods({
   }
 });
 
+UI.registerHelper("users", function () {
+  return Meteor.users.find();
+}),
+
+UI.registerHelper("initCollapsible", function () {
+    $('.collapsible').collapsible();
+    console.log("Collapsible ON!");
+}),
+
+UI.registerHelper("boats", function () {
+    return Boats.find();
+}),
+
+UI.registerHelper("groups", function () {
+    return Groups.find();
+}),
+
+UI.registerHelper("events", function () {
+    return Events.find();
+}),
+
+UI.registerHelper("peopleInGroup", function (a) {
+    return Groups.findOne(a).fetch();
+}),
+
 
 UI.registerHelper("FreeLimit", function() {
   return RegisterLimit.find().fetch()[0].free;

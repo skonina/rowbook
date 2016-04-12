@@ -235,9 +235,9 @@ Meteor.methods({
   }
 });
 
-UI.registerHelper("users", function () {
-  return Meteor.users.find();
-}),
+// UI.registerHelper("users", function () {
+//   return Meteor.users.find();
+// }),
 
 UI.registerHelper("initCollapsible", function () {
     $('.collapsible').collapsible();
@@ -257,7 +257,7 @@ UI.registerHelper("events", function () {
 }),
 
 UI.registerHelper("peopleInGroup", function (a) {
-    return Groups.findOne(a).fetch();
+    return Groups.findOne(a);
 }),
 
 

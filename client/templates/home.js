@@ -7,6 +7,24 @@ AccountsTemplates.addField({
         displayName: 'Name & Surname',
     });
 
+Meteor.subscribe('users');
+
+Template.usersList.helpers({
+	users() {
+		return Meteor.users.find();
+	}
+});
+Template.group.helpers({
+	convert (userId){
+		return Meteor.users.findOne(userId);
+	},
+});
+Template.boat.helpers({
+	BoatType (a){
+		console.log(BoatTypes.findOne(this.type));
+		return BoatTypes.findOne(this.type)[a];
+	},
+});
 // AccountsTemplates.addField({
 //     _id: 'course',
 //     type: "select",

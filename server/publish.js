@@ -1,6 +1,6 @@
-// Meteor.publish('users', function() {
-//         return Meteor.users.find();
-//     });
+Meteor.publish('users', function() {
+        return Meteor.users.find();
+    });
 
 // Meteor.publish('events', function(){
 //   return EventList.find();

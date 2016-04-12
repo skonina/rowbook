@@ -6,7 +6,6 @@
 			<!-- <p>Google mail: {{services.google.email}}</p> -->
 			<!-- <p>Facebook mail: {{services.facebook.email}}</p> -->
 			<p>Mail: {{email}}</p>
-			<br />
 			<a id="user-remove" class="waves-effect btn"><i class="material-icons left">not_interested</i>Remove user</a>
 
 			<a id="user-admin" class="waves-effect btn"><i class="material-icons left">grade</i>Give admin privileges</a>
@@ -21,8 +20,9 @@
 	<li>
   		<div class="collapsible-header"><i class="material-icons left">perm_identity</i>{{name}}</div>
   		<div class="collapsible-body">
-			<p>Description: {{description}}</p> <br />
-			<p>Capacity: {{capacity}}</p> <br />
+			<p>Description: {{description}}<br />
+			Type: {{BoatType "name"}}<br />
+			Capacity: {{BoatType "capacity"}}</p>
 			<a id="boat-remove" class="waves-effect btn"><i class="material-icons left">not_interested</i>Remove boat</a>
 			<br /><br />
 		</div>
@@ -34,14 +34,14 @@
 	<li>
   		<div class="collapsible-header"><i class="material-icons left">perm_identity</i>{{name}}</div>
   		<div class="collapsible-body">
-			<p>Description: {{description}}</p> <br />
+			<p>Description: {{description}}</p>
 			<div class="card">
                <div class="card-content">
                    <span class="card-title">Users list</span>
                    <br />
                    <ul class="collapsible z-depth-0" style="border-style: none;">
-						{{#each peopleInGroup}}
-							{{> user}}
+						{{#each userId in peopleIDs}}
+							{{> user (convert userId)}}
 						{{/each}}
 					 </ul>
 	            </div>
@@ -65,16 +65,16 @@
 
 <template name="usersList">
 	<div class="card">
-	               <div class="card-content">
-	                   <span class="card-title">Users list</span>
-	                   <br />
-	                   <ul class="collapsible z-depth-0" style="border-style: none;">
-	                     {{#each users}}
-	                       {{> user}}
-	                     {{/each}}
-	                   </ul>
-	                 </div>
-	             </div>
+		<div class="card-content">
+		   <span class="card-title">Users list</span>
+		   <br />
+		   <ul class="collapsible z-depth-0" style="border-style: none;">
+		     {{#each users}}
+		       {{> user}}
+		     {{/each}}
+		   </ul>
+		 </div>
+	</div>
 </template>
 
 <template name="boatsList">
@@ -87,6 +87,13 @@
 	                		<div class="card-content">
 	                			<span class="card-title">Add boat</span>
 	                			{{> insertBoatForm}}
+	                		</div>
+	                	</div>
+
+	                	<div class="card">
+	                		<div class="card-content">
+	                			<span class="card-title">Add boat types</span>
+	                			{{> insertBoatTypesForm}}
 	                		</div>
 	                	</div>
 
@@ -145,6 +152,10 @@
 
 <template name="insertBoatForm">
    {{> quickForm collection="Boats" id="insertBoatForm" type="insert"}}
+</template>
+
+<template name="insertBoatTypesForm">
+   {{> quickForm collection="BoatTypes" id="insertBoatTypesForm" type="insert"}}
 </template>
 
 <template name="insertGroupForm">

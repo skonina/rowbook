@@ -19,11 +19,21 @@ Template.group.helpers({
 		return Meteor.users.findOne(userId);
 	},
 });
+Template.trainingsList.helpers({
+	trainings (){
+		return Trainings.find();
+	},
+});
 Template.boat.helpers({
 	BoatType (a){
-		console.log(BoatTypes.findOne(this.type));
+		// console.log(BoatTypes.findOne(this.type));
 		return BoatTypes.findOne(this.type)[a];
 	},
+});
+
+Template.adminView.onRendered(function(){
+	$('.collapsible').collapsible();
+    console.log("Collapsible ON!");
 });
 // AccountsTemplates.addField({
 //     _id: 'course',

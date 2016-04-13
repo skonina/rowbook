@@ -239,10 +239,10 @@ Meteor.methods({
 //   return Meteor.users.find();
 // }),
 
-UI.registerHelper("initCollapsible", function () {
-    $('.collapsible').collapsible();
-    console.log("Collapsible ON!");
-}),
+// UI.registerHelper("initCollapsible", function () {
+//     $('.collapsible').collapsible();
+//     console.log("Collapsible ON!");
+// }),
 
 UI.registerHelper("boats", function () {
     return Boats.find();
@@ -252,13 +252,67 @@ UI.registerHelper("groups", function () {
     return Groups.find();
 }),
 
-UI.registerHelper("events", function () {
-    return Events.find();
+UI.registerHelper("events2", function () {
+    return Events.find().fetch();
 }),
 
 UI.registerHelper("peopleInGroup", function (a) {
     return Groups.findOne(a);
 }),
+
+UI.registerHelper("parseUser", function (userId){
+  return Meteor.users.findOne(userId);
+}),
+
+UI.registerHelper("parseUserNames", function (userIDs){
+  var q = [];
+
+  // if(typeof userIDs != "undefined")
+  //     q.push('Rowers: ');
+
+  _.each(userIDs, function (a){
+    q.push(" " + Meteor.users.findOne(a).profile.name);
+  });
+  return q;
+}),
+
+UI.registerHelper("parseBoatNames", function (boatIDs){
+  var q = [];
+
+  // if(typeof boatIDs != "undefined")
+  //     q.push('Boat: ');
+  
+  _.each(boatIDs, function (a){
+    q.push(" " + Boats.findOne(a).name);
+  });
+  return q;
+}),
+
+
+UI.registerHelper("parseUserGroupNames", function (groupIDs){
+  var q = [];
+  // if(typeof groupIDs != "undefined")
+  //     q.push('Group: ');
+
+  _.each(groupIDs, function (a){
+    q.push(" " + Groups.findOne(a).name);
+  });
+  return q;
+}),
+
+UI.registerHelper("parseTraining", function (trainingIDs){
+  var q = [];
+  // if(typeof groupIDs != "undefined")
+  //     q.push('Group: ');
+
+  _.each(trainingIDs, function (a){
+    q.push(" " + Trainings.findOne(a).name);
+  });
+  return q;
+}),
+
+
+
 
 
 UI.registerHelper("FreeLimit", function() {

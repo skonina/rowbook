@@ -1,3 +1,11 @@
 .chosen {
   background-color: #0089EC;
 }
+
+.collapsible{
+	border-bottom: 1px solid #ddd;
+}
+
+.card-title.collapsible-header{
+	border-bottom:0px !important;
+}

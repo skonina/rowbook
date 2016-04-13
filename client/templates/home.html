@@ -23,21 +23,11 @@
         
         {{> atNavButton}}
 
-           {{#if isInRole 'admin'}}
-        
-
-            {{>usersList}}
-            <br /><br />
-            {{>groupsList}}
-            <br /><br />
-            {{>boatsList}}
-            <br /><br />
-            {{>eventsList}}
-            <br /><br />
-            
-            {{initUsersLists}}
-
-           {{/if}}
+          {{#if isInRole 'admin'}}
+            {{> adminView}}
+          {{else}}
+              
+        {{/if}}
 
 
 

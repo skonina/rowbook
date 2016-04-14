@@ -230,8 +230,11 @@ Meteor.methods({
     Meteor.users.update(user, {$inc: {[EventList.findOne(event).eventType]: -1}});
   },
 
-  userPay: function(user) {
-    Meteor.users.update(user, {$set: {paid: true}});
+  sessionEnd: function(session) {
+    Events.update(session, {$set: {state: 'done'}});
+  },
+  sessionStart: function(session) {
+    Events.update(session, {$set: {state: 'ongoing'}});
   }
 });
 
@@ -244,147 +247,6 @@ Meteor.methods({
 //     console.log("Collapsible ON!");
 // }),
 
-UI.registerHelper("boats", function () {
-    return Boats.find();
-}),
 
-UI.registerHelper("groups", function () {
-    return Groups.find();
-}),
-
-UI.registerHelper("events2", function () {
-    return Events.find().fetch();
-}),
-
-UI.registerHelper("peopleInGroup", function (a) {
-    return Groups.findOne(a);
-}),
-
-UI.registerHelper("parseUser", function (userId){
-  return Meteor.users.findOne(userId);
-}),
-
-UI.registerHelper("parseUserNames", function (userIDs){
-  var q = [];
-
-  // if(typeof userIDs != "undefined")
-  //     q.push('Rowers: ');
-
-  _.each(userIDs, function (a){
-    q.push(" " + Meteor.users.findOne(a).profile.name);
-  });
-  return q;
-}),
-
-UI.registerHelper("parseBoatNames", function (boatIDs){
-  var q = [];
-
-  // if(typeof boatIDs != "undefined")
-  //     q.push('Boat: ');
-  
-  _.each(boatIDs, function (a){
-    q.push(" " + Boats.findOne(a).name);
-  });
-  return q;
-}),
-
-
-UI.registerHelper("parseUserGroupNames", function (groupIDs){
-  var q = [];
-  // if(typeof groupIDs != "undefined")
-  //     q.push('Group: ');
-
-  _.each(groupIDs, function (a){
-    q.push(" " + Groups.findOne(a).name);
-  });
-  return q;
-}),
-
-UI.registerHelper("parseTraining", function (trainingIDs){
-  var q = [];
-  // if(typeof groupIDs != "undefined")
-  //     q.push('Group: ');
-
-  _.each(trainingIDs, function (a){
-    q.push(" " + Trainings.findOne(a).name);
-  });
-  return q;
-}),
-
-
-
-
-
-UI.registerHelper("FreeLimit", function() {
-  return RegisterLimit.find().fetch()[0].free;
-});
-
-UI.registerHelper("PayableLimit", function() {
-  return RegisterLimit.find().fetch()[0].payable;
-});
-
-UI.registerHelper("dayFormat", function(a) {
-  return moment(a).format('dddd, MMMM Do');
-});
-
-UI.registerHelper("hourFormat", function(a) {
-  return moment(a).format('HH:mm');
-});
-
-UI.registerHelper("p", function(a) {
-		var day1 = B;
-		// Session.set("previousDay", 'dsd'); wild motherfucker!
-		console.log("GO!");
-		var day2 = moment(a).format('DDD');
-		if(day1 == day2)
-				return false;
-		B = day2;
-		return true;
-});
-
-
-
-UI.registerHelper("chosenEvents", function() {
-    console.log('chosenEvents ' +this);
-    var q = [];
-    _.each(this.events, function (a){
-      q.push(EventList.findOne(a));
-    });
-    return q;
-});
-
-UI.registerHelper("registeredUsers", function() {
-    // console.log('registeredUsers' + this);
-    var q = [];
-    _.each(this.users, function (a){
-      q.push(Meteor.users.findOne(a));
-    });
-    return q;
-});
-  
-  
-UI.registerHelper("hasUserDecided",function () {
-      return !Meteor.user().decided;
-});
-
-UI.registerHelper("hasPaid", function() {
-  return this.paid;
-});
-
-
-UI.registerHelper("email", function () {
-		if(typeof this.services.google != "undefined")
-			return this.services.google.email;
-		if(typeof this.services.facebook != "undefined")
-			return this.services.facebook.email;
-		return this.emails[0].address;
-	}
-);
-
-
-// Accounts.onCreateUser(function(options, user) {
-//   user.events = [];
-//   return user;
-// });
 
 

@@ -27,12 +27,13 @@ momentjs:moment
 brylie:first-user-admin
 kadira:flow-router
 
-autopublish             # Publish all data to the clients (for prototyping)
-insecure                # Allow all DB writes from clients (for prototyping)
+#autopublish             # Publish all data to the clients (for prototyping)
+#insecure                # Allow all DB writes from clients (for prototyping)
 
 aldeed:collection2
 aldeed:autoform
 gildaspk:autoform-materialize
+aldeed:delete-button
 
 natestrauser:select2
 aldeed:autoform-select2

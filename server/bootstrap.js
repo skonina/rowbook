@@ -1,4 +1,4 @@
-// if (!Roles.userIsInRole(Meteor.users.findOne({'profile':{'name':'Teodor W.'}}), ['admin'])) {
+// if (!Roles.userIsInRole(Meteor.users.findOne({'profile':{'name':'Boathouse Panel'}}), ['boathouse'])) {
 //     Roles.addUsersToRoles(Meteor.users.findOne({'profile':{'name':'Teodor W.'}})._id, ['admin']);
 //     }
     

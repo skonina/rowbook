@@ -2,12 +2,30 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <title class='center-align'>Rowbook</title>
 </head>
- 
+
 <body>
+<nav>
+ <div class="nav-wrapper z-depth-1" style="background-color: white">
+   <a href="#" class="brand-logo center" style="color: #444;">Rowbook</a>
+   <div id="nav-mobile" class="right" style="color: #444; margin-right: 2em;">
+      {{#if currentUser}}
+        Welcome {{currentUser.profile.name}}!
+        {{> atNavButton}}
+      {{/if}}
+    </div>
+   <!-- <ul id="nav-mobile" class="right hide-on-med-and-down">
+     <li><a href="sass.html">Sass</a></li>
+     <li><a href="badges.html">Compon  ents</a></li>
+     <li><a href="collapsible.html">JavaScript</a></li>
+   </ul> -->
+ </div>
+</nav>
+<header><br /><br /></header>
   <div class="container">
-    <header>
+   
+    <!-- <header>
       <h1>Rowbook</h1>
-    </header>
+    </header> -->
   </div>
 
     <div class="row">
@@ -19,18 +37,15 @@
     <div class="container">
 
       {{#if currentUser}}
-        <h5>Welcome {{currentUser.profile.name}}!</h5>
-        
-        {{> atNavButton}}
-
           {{#if isInRole 'admin'}}
             {{> adminView}}
           {{else}}
-              
+            {{#if currentUser.profile.name = 'Boathouse Panel' }}
+              {{> boathouseView}}
+            {{else}}
+              {{> userView}}
+            {{/if}}
         {{/if}}
-
-
-
 
       {{/if}}
     </div>

@@ -1,0 +1,32 @@
+<template name="eventsListUser">
+	<ul class="card collapsible">
+		<li class="card-content">
+			<span class="card-title collapsible-header">Sessions</span>
+			<div class="collapsible-body">
+				<br />
+
+				<ul class="collapsible z-depth-0">
+					{{#each eventsUser}}
+						{{> event}}
+					{{/each}}
+				</ul>
+
+				<ul class="card collapsible z-depth-0">
+					<li class="card-content ">
+						<span class="card-title collapsible-header">Add session</span>
+						{{> insertEventForm}}
+					</li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+</template>
+
+<template name="userView">
+	 {{#if Template.subscriptionsReady}}
+	   	{{>eventsListUser}}
+	{{else}}
+		<br />
+		<h2>Loading...</h2>
+	{{/if}}
+</template>

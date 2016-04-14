@@ -1,0 +1,158 @@
+<template name="rowNow">
+	Row Now!
+	<br />
+</template>
+
+<template name="ongoingSessions">
+	Ongoing Sessions:
+	<ul class="collapsible z-depth-0">
+		{{#each eventsOngoing}}
+			{{> eventOngoing}}
+		{{/each}}
+	</ul>
+</template>
+
+<template name="eventOngoing">
+	<li>
+		<div class="collapsible-header"><i class="material-icons left">stars</i>
+		<strong>Date: </strong>{{hourFormat Date}} {{dayFormat Date}}
+		{{#if groupID}}<strong>Group: </strong>{{/if}}{{parseGroupName groupID}}
+		{{#if peopleIDs}}<strong>Rowers: </strong>{{/if}}
+		{{#if groupID}}{{parseGroupUserNames groupID}}, {{/if}}{{parseUserNames peopleIDs}}
+		{{#if boatID}}<strong>Boat: </strong>{{/if}}{{parseBoatNames boatID}}</div>
+		<div class="collapsible-body row">
+			<div class="col s6">
+				<p>	
+					{{#if distance}}<strong>Distance: </strong>{{distance}} kilometres<br />{{/if}}
+					{{#if time}}<strong>Estimated duration: </strong>{{time}} minutes<br />{{/if}}
+					{{#if comment}}<strong>Comments: </strong>{{comment}}<br />{{/if}}
+					{{#if training}}
+					<div class="row">
+						<div class="col s3">
+							<strong>Trainings: </strong> <!-- </strong>{{parseTraining training}} -->
+						</div>
+						<div class="col s9">
+							{{#each parseTrainings training}}
+								{{> trainingView}}
+							{{/each}}
+						</div>
+					</div>
+					{{/if}}
+					<br />
+					 <!-- {{#quickRemoveButton collection="Events" _id=this._id class="waves-effect btn"}}Delete session<i class="material-icons left">not_interested</i>{{/quickRemoveButton}} -->
+				</p>
+			</div>
+			<div class="col s6">
+				<p>
+				<!-- {{> quickForm collection="Events" doc=this id=this._id type="update" buttonContent=false autosave=true}} -->
+				{{#autoForm collection="Events" doc=this id=this._id type="update" buttonContent=false}}
+				    <fieldset>
+				      <legend>Check the session</legend>
+				      {{> afQuickField name='comment'}}
+				      {{> afQuickField name='distance'}}   
+				      <button type="submit" class="btn btn-primary green" id="session-end">Mark as done!<i class="material-icons right">done</i></button>
+				    </fieldset>
+				    
+				  {{/autoForm}}
+				</p>
+			</div>
+		</div>
+	</li>
+</template>
+
+
+<template name="plannedSessions">
+	Planned Sessions:
+	<ul class="collapsible z-depth-0">
+		{{#each eventsPlanned}}
+			{{> eventPlanned}}
+		{{/each}}
+	</ul>
+</template>
+
+<template name="eventPlanned">
+	<li>
+		<div class="collapsible-header"><i class="material-icons left">stars</i>
+			<strong>Date: </strong>{{hourFormat Date}} {{dayFormat Date}}
+			{{#if groupID}}<strong>Group: </strong>{{/if}}{{parseGroupName groupID}}
+			{{#if peopleIDs}}<strong>Rowers: </strong>{{/if}}
+			{{#if groupID}}{{parseGroupUserNames groupID}}, {{/if}}{{parseUserNames peopleIDs}}
+			{{#if boatID}}<strong>Boat: </strong>{{/if}}{{parseBoatNames boatID}}
+			<!-- <a class="right small green waves-effect waves-light btn">Mark as done<i class="material-icons right">done</i></a> -->
+		</div>
+
+		<div class="collapsible-body row">
+			<div class="col s6">
+				<p>	
+					{{#if distance}}<strong>Distance: </strong>{{distance}} kilometres<br />{{/if}}
+					{{#if time}}<strong>Estimated duration: </strong>{{time}} minutes<br />{{/if}}
+					{{#if comment}}<strong>Comments: </strong>{{comment}}<br />{{/if}}
+					{{#if training}}
+					<div class="row">
+						<div class="col s3">
+							<strong>Trainings: </strong> <!-- </strong>{{parseTraining training}} -->
+						</div>
+						<div class="col s9">
+							{{#each parseTrainings training}}
+								{{> trainingView}}
+							{{/each}}
+						</div>
+					</div>
+					{{/if}}
+					<br />
+					 <!-- {{#quickRemoveButton collection="Events" _id=this._id class="waves-effect btn"}}Delete session<i class="material-icons left">not_interested</i>{{/quickRemoveButton}} -->
+				</p>
+			</div>
+			<div class="col s6">
+				<p>
+				<!-- {{> quickForm collection="Events" doc=this id=this._id type="update" buttonContent=false autosave=true}} -->
+				{{#autoForm collection="Events" doc=this id=this._id type="update" buttonContent=false}}
+				    <fieldset>
+				      <legend>Modify session</legend>
+				      {{> afQuickField name='date'}}
+				      {{> afQuickField name='peopleIDs'}}
+				      {{> afQuickField name='groupID'}}
+				      {{> afQuickField name='boatID'}}
+				      {{> afQuickField name='time'}}
+				      {{> afQuickField name='training'}}  
+				      <button type="submit" class="btn btn-primary orange" id="session-start">Start session<i class="material-icons right">play_arrow</i></button>
+				    </fieldset>
+				    
+				  {{/autoForm}}
+				</p>
+			</div>
+		</div>
+	</li>
+</template>
+
+<template name="boathouseView">
+	 {{#if Template.subscriptionsReady}}
+	   	<!-- {{>eventsListUser}} -->
+	   	{{>rowNow}}
+	   	{{>ongoingSessions}}
+	   	{{>plannedSessions}}
+	{{else}}
+		<br />
+		<h2>Loading...</h2>
+	{{/if}}
+</template>
+
+<template name="trainingView">
+	<div class="collapsible z-depth-0">
+	<li>
+		<div class="collapsible-header"><i class="material-icons left">assessment</i>{{name}}</div>
+		<div class="collapsible-body">
+				<p>
+					{{description}}
+					<br /><br />
+					<ul class="collection">
+						{{#each plan}}
+							<li class="collection-item">{{this}}</li>
+							<br />
+						{{/each}}
+					</ul>
+				</p>
+		</div>
+	</li>
+	</div>
+</template>

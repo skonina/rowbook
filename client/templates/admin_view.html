@@ -1,0 +1,336 @@
+<template name="user">
+	<li>
+		<div class="collapsible-header"><i class="material-icons left">perm_identity</i>{{profile.name}}</div>
+		<div class="collapsible-body">
+			<!-- ID: {{_id}} -->
+			<!-- <p>Google mail: {{services.google.email}}</p> -->
+			<!-- <p>Facebook mail: {{services.facebook.email}}</p> -->
+			<p><strong>Mail:</strong> {{email}}<br />
+			<br />
+
+			{{#quickRemoveButton collection="Meteor.users" _id=this._id class="waves-effect btn"}}Delete user<i class="material-icons left">not_interested</i>{{/quickRemoveButton}}
+
+			<a id="user-admin" class="waves-effect btn"><i class="material-icons left">grade</i>Give admin privileges</a>
+			</p>			
+		</div>
+	</li>
+</template>
+
+<template name="usersList">
+	<ul class="card collapsible">
+		<li class="card-content">
+			<span class="collapsible-header card-title">Users</span>
+			<div class="collapsible-body">
+				<br />
+				<ul class="collapsible z-depth-0">
+					{{#each users}}
+						{{> user}}
+					{{/each}}
+				</ul>
+			</div>
+		</li>
+	</ul>
+</template>
+
+
+<template name="boat">
+	<li>
+		<div class="collapsible-header"><i class="material-icons left">navigation</i>{{name}}</div>
+		<div class="collapsible-body row">
+			<div class="col s6">
+				<p><strong>Description:</strong> {{description}}<br />
+					<strong>Type:</strong> {{BoatType "name"}}<br />
+					<strong>Capacity:</strong> {{BoatType "capacity"}}<br />
+					<br />
+					{{#quickRemoveButton collection="Boats" _id=this._id class="waves-effect btn"}}Delete boat<i class="material-icons left">not_interested</i>{{/quickRemoveButton}}		
+				</p>
+			</div>
+			<div class="col s6">
+				<p>
+				{{> quickForm collection="Boats" doc=this id=this.name type="update" buttonContent=false autosave=true}}
+				</p>
+			</div>
+		</div>
+	</li>
+</template>
+
+<template name="boatType">
+	<li>
+		<div class="collapsible-header"><i class="material-icons left">settings_applications</i>{{name}}</div>
+		<div class="collapsible-body row">
+			<div class="col s6">
+				<p><strong>Description:</strong> {{description}}<br />
+					<strong>Type:</strong> {{name}}<br />
+					<strong>Capacity:</strong> {{capacity}}
+					<br /><br />
+					{{#quickRemoveButton collection="BoatTypes" _id=this._id class="waves-effect btn"}}Delete boat type<i class="material-icons left">not_interested</i>{{/quickRemoveButton}}		 
+				</p>
+			</div>
+			<div class="col s6">
+				<p>
+				{{> quickForm collection="BoatTypes" doc=this id=this.name type="update" buttonContent=false autosave=true}}
+				</p>
+			</div>
+		</div>
+	</li>
+</template>
+
+
+<template name="boatsList">
+	<ul class="card collapsible">
+		<li class="card-content">
+			<span class="collapsible-header card-title">Boats</span>
+			<div class="collapsible-body">
+				<br />
+
+				<ul class="collapsible z-depth-0">
+					{{#each boats}}
+						{{> boat}}
+					{{/each}}
+				</ul>
+
+				<ul class="card collapsible z-depth-0">
+					<li class="card-content"> 
+						<span class="card-title collapsible-header">Add boat</span>
+						{{> insertBoatForm}}
+					</li>
+				</ul>
+
+				<ul class="card collapsible z-depth-0">
+					<li class="card-content">
+						<span class="card-title collapsible-header">Add boat types</span>
+						{{> insertBoatTypesForm}}
+					</li>
+				</ul>
+
+				<h7>Boat types:</h7>
+				<ul class="collapsible z-depth-0">
+					{{#each boatTypes}}
+						{{> boatType}}
+					{{/each}}
+				</ul>
+			</div>
+		</li>
+	</ul>
+</template>
+
+
+<template name="event">
+	<li>
+		<div class="collapsible-header"><i class="material-icons left">stars</i>
+		<strong>Date: </strong>{{hourFormat Date}} {{dayFormat Date}}
+		{{#if groupID}}<strong>Group: </strong>{{/if}}{{parseGroupName groupID}}
+		{{#if peopleIDs}}<strong>Rowers: </strong>{{/if}}
+		{{#if groupID}}{{parseGroupUserNames groupID}}, {{/if}}{{parseUserNames peopleIDs}}
+		{{#if boatID}}<strong>Boat: </strong>{{/if}}{{parseBoatNames boatID}}</div>
+		<div class="collapsible-body row">
+			<div class="col s6">
+				<p>	
+					{{#if distance}}<strong>Distance: </strong>{{distance}} kilometres<br />{{/if}}
+					{{#if time}}<strong>Estimated duration: </strong>{{time}} minutes<br />{{/if}}
+					{{#if comment}}<strong>Comments: </strong>{{comment}}<br />{{/if}}
+					{{#if training}}
+					<div class="row">
+						<div class="col s3">
+							<strong>Trainings: </strong> <!-- </strong>{{parseTraining training}} -->
+						</div>
+						<div class="col s9">
+							{{#each parseTrainings training}}
+								{{> trainingView}}
+							{{/each}}
+						</div>
+					</div>
+					{{/if}}
+					<br />
+					 {{#quickRemoveButton collection="Events" _id=this._id class="waves-effect btn"}}Delete session<i class="material-icons left">not_interested</i>{{/quickRemoveButton}}
+				</p>
+			</div>
+			<div class="col s6">
+				<p>
+				{{> quickForm collection="Events" doc=this id=this._id type="update"}}
+				</p>
+			</div>
+		</div>
+	</li>
+</template>
+
+
+<template name="eventsListAdmin">
+	<ul class="card collapsible">
+		<li class="card-content">
+			<span class="card-title collapsible-header">Sessions</span>
+			<div class="collapsible-body">
+				<br />
+
+				<ul class="collapsible z-depth-0">
+					{{#each eventsAdmin}}
+						{{> event}}
+					{{/each}}
+				</ul>
+
+				<ul class="card collapsible z-depth-0">
+					<li class="card-content ">
+						<span class="card-title collapsible-header">Add session</span>
+						{{> insertEventForm}}
+					</li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+</template>
+
+<template name="training">
+	<li>
+		<div class="collapsible-header"><i class="material-icons left">assessment</i>{{name}}</div>
+		<div class="collapsible-body row">
+			<div class="col s6">
+				<p>
+					{{description}}
+					<br /><br />
+					<ul class="collection">
+						{{#each plan}}
+							<li class="collection-item">{{this}}</li>
+							<br />
+						{{/each}}
+					</ul>
+					<br /><br />
+					{{#quickRemoveButton collection="Trainings" _id=this._id class="waves-effect btn"}}Delete training<i class="material-icons left">not_interested</i>{{/quickRemoveButton}}
+				</p>
+			</div>
+			<div class="col s6">
+				<p>
+				{{> quickForm collection="Trainings" doc=this id=this.name type="update"}}
+				</p>
+			</div>
+		</div>
+	</li>
+</template>
+
+<template name="trainingsList">
+	<ul class="card collapsible">
+		<li class="card-content">
+			<span class="collapsible-header card-title">Training plans</span>
+			<div class="collapsible-body">
+				<br />
+
+				<ul class="collapsible z-depth-0">
+					{{#each trainings}}
+						{{> training}}
+					{{/each}}
+				</ul>
+
+				<ul class="card collapsible z-depth-0">
+					<li class="card-content">
+						<span class="card-title collapsible-header">Add training plan</span>
+						{{> insertTrainingsForm}}
+					</li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+</template>
+
+
+<template name="group">
+	<li>
+		<div class="collapsible-header"><i class="material-icons left">supervisor_account</i>{{name}}</div>
+		<div class="collapsible-body row">
+			<div class="col s6">
+				<p>Description: {{description}}
+				<div class="card z-depth-0">
+					<div class="card-content">
+						<span class="card-title">Users list</span>
+						<br />
+						<ul class="collapsible z-depth-0">
+							{{#each userId in peopleIDs}}
+								{{> user (parseUser userId)}}
+							{{/each}}
+						</ul>
+					</div>
+				</div>
+				<br />
+				{{#quickRemoveButton collection="Groups" _id=this._id class="waves-effect btn"}}Delete group<i class="material-icons left">not_interested</i>{{/quickRemoveButton}}
+				</p>
+			</div>
+			<div class="col s6">
+				<p>
+				{{> quickForm collection="Groups" doc=this id=this.name type="update"}}
+				</p>
+			</div>
+		</div>
+	</li>
+</template>
+
+<template name="groupsList">
+	<ul class="card collapsible">
+		<li class="card-content">
+			<span class="collapsible-header card-title">Groups</span>
+			<div class="collapsible-body">
+				<br />
+				
+				<ul class="collapsible z-depth-0">
+					{{#each groups}}
+						{{> group}}
+					{{/each}}
+				</ul>
+
+				<ul class="card collapsible z-depth-0">
+					<li class="card-content">
+						<span class="card-title collapsible-header">Add group</span>
+						{{> insertGroupForm}}
+					</li>
+				</ul>
+			</div>	
+		</li>
+	</ul>
+</template>
+
+
+
+
+<template name="insertTrainingsForm">
+	<div class="collapsible-body"> 
+		{{> quickForm collection="Trainings" id="insertTrainingsForm" type="insert"}}
+	</div>
+</template>
+
+<template name="insertBoatForm">
+	<div class="collapsible-body"> 
+		{{> quickForm collection="Boats" id="insertBoatForm" type="insert"}}
+	</div>
+</template>
+
+<template name="insertBoatTypesForm">
+	<div class="collapsible-body"> 
+		{{> quickForm collection="BoatTypes" id="insertBoatTypesForm" type="insert"  isReactiveOptions=true}}
+	</div>
+</template>
+
+<template name="insertGroupForm">
+	<div class="collapsible-body"> 
+		{{> quickForm collection="Groups" id="insertGroupForm" type="insert"  isReactiveOptions=true}}
+	</div>
+</template>
+
+<template name="insertEventForm">
+	<div class="collapsible-body"> 
+		{{> quickForm collection="Events" id="insertEventForm" type="insert"  isReactiveOptions=true}}
+	</div>
+</template>
+
+<template name="adminView">
+	 {{#if Template.subscriptionsReady}}
+	   	{{>eventsListAdmin}}
+		<br /><br />           
+		{{>usersList}}
+		<br /><br />
+		{{>groupsList}}
+		<br /><br />
+		{{>boatsList}}
+		<br /><br />
+		{{>trainingsList}}
+	{{else}}
+		<br />
+		<h2>Loading...</h2>
+	{{/if}}
+</template>

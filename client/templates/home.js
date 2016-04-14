@@ -7,8 +7,6 @@ AccountsTemplates.addField({
         displayName: 'Name & Surname',
     });
 
-Meteor.subscribe('users');
-
 Template.usersList.helpers({
 	users() {
 		return Meteor.users.find();
@@ -31,10 +29,79 @@ Template.boat.helpers({
 	},
 });
 
-Template.adminView.onRendered(function(){
-	$('.collapsible').collapsible();
-    console.log("Collapsible ON!");
+Template.adminView.onCreated(function() {
+	this.autorun(() => {
+		this.subscribe('users');
+		this.subscribe('groups');
+		this.subscribe('boats');
+		this.subscribe('boatTypes');
+		this.subscribe('trainings');
+		this.subscribe('events');
+
+	});
 });
+	
+
+Template.adminView.onRendered(function(){
+	this.autorun(() => {
+	    if (this.subscriptionsReady()) {
+	    	Tracker.afterFlush(() => {
+				$('.collapsible').collapsible();
+				console.log("Collapsible ON!");
+			});
+		}
+	}); 
+});
+
+Template.userView.onCreated(function() {
+	this.autorun(() => {
+		this.subscribe('users');
+		this.subscribe('groups');
+		this.subscribe('boats');
+		this.subscribe('boatTypes');
+		this.subscribe('trainings');
+		this.subscribe('events');
+
+	});
+});
+	
+
+Template.userView.onRendered(function(){
+	this.autorun(() => {
+	    if (this.subscriptionsReady()) {
+	    	Tracker.afterFlush(() => {
+				$('.collapsible').collapsible();
+				console.log("Collapsible ON!");
+			});
+		}
+	}); 
+});
+
+Template.boathouseView.onCreated(function() {
+	this.autorun(() => {
+		this.subscribe('users');
+		this.subscribe('groups');
+		this.subscribe('boats');
+		this.subscribe('boatTypes');
+		this.subscribe('trainings');
+		this.subscribe('events');
+
+	});
+});
+	
+
+Template.boathouseView.onRendered(function(){
+	this.autorun(() => {
+	    if (this.subscriptionsReady()) {
+	    	Tracker.afterFlush(() => {
+				$('.collapsible').collapsible();
+				console.log("Collapsible ON!");
+			});
+		}
+	}); 
+});
+
+
 // AccountsTemplates.addField({
 //     _id: 'course',
 //     type: "select",

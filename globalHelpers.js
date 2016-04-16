@@ -26,6 +26,10 @@ UI.registerHelper("eventsPlanned", function () {
     return Events.find({state: 'planned'}).fetch()
 }),
 
+UI.registerHelper("eventsDone", function () {
+    return Events.find({state: 'done'}).fetch()
+}),
+
 UI.registerHelper("peopleInGroup", function (a) {
     return Groups.findOne(a);
 }),
@@ -119,18 +123,6 @@ UI.registerHelper("dayFormat", function(a) {
 UI.registerHelper("hourFormat", function(a) {
   return moment(a).format('HH:mm');
 });
-
-UI.registerHelper("p", function(a) {
-		var day1 = B;
-		// Session.set("previousDay", 'dsd'); wild motherfucker!
-		console.log("GO!");
-		var day2 = moment(a).format('DDD');
-		if(day1 == day2)
-				return false;
-		B = day2;
-		return true;
-});
-
 
 
 UI.registerHelper("chosenEvents", function() {

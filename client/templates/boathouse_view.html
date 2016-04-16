@@ -1,6 +1,38 @@
 <template name="rowNow">
-	Row Now!
 	<br />
+	<!-- <ul class="card">
+		<li class="card-content">
+			<span class="card-title">Sessions</span>
+			<div class=""> -->
+				{{#autoForm collection="Events" id="newSession" type="insert" resetOnSuccess=true}}
+				    <fieldset>
+				    	<legend>Row now</legend>
+				    	<div class="row">
+					      <div class="col s6">
+						      {{> afQuickField name='peopleIDs'}}
+						      {{> afQuickField name='groupID'}}
+					      </div>
+					      <div class="col s6">
+						      {{> afQuickField name='boatID'}}
+						      {{> afQuickField name='training'}}
+						  </div>
+						</div>
+
+						<div class="row">
+								<div class="col offset-s3 s6">
+									 <button type="submit" class="btn btn-primary orange session-new" style="display: block; width: 100%;"><span style="vertical-align: top;">Start session</span><i class="material-icons" style="vertical-align: top;">play_arrow</i></button>
+								</div>
+						</div>
+						
+					</fieldset>
+				      
+				    
+				    
+				  {{/autoForm}}
+<!-- 			</div>
+		</li>
+	</ul> -->
+
 </template>
 
 <template name="ongoingSessions">
@@ -14,8 +46,8 @@
 
 <template name="eventOngoing">
 	<li>
-		<div class="collapsible-header"><i class="material-icons left">stars</i>
-		<strong>Date: </strong>{{hourFormat Date}} {{dayFormat Date}}
+		<div class="collapsible-header"><i class="material-icons left">loop</i>
+		<strong>Date: </strong>{{hourFormat dateStarted}} {{dayFormat dateStarted}}
 		{{#if groupID}}<strong>Group: </strong>{{/if}}{{parseGroupName groupID}}
 		{{#if peopleIDs}}<strong>Rowers: </strong>{{/if}}
 		{{#if groupID}}{{parseGroupUserNames groupID}}, {{/if}}{{parseUserNames peopleIDs}}
@@ -50,7 +82,7 @@
 				      <legend>Check the session</legend>
 				      {{> afQuickField name='comment'}}
 				      {{> afQuickField name='distance'}}   
-				      <button type="submit" class="btn btn-primary green" id="session-end">Mark as done!<i class="material-icons right">done</i></button>
+				      <button type="submit" class="btn btn-primary green session-end">Mark as done!<i class="material-icons right">done</i></button>
 				    </fieldset>
 				    
 				  {{/autoForm}}
@@ -72,8 +104,8 @@
 
 <template name="eventPlanned">
 	<li>
-		<div class="collapsible-header"><i class="material-icons left">stars</i>
-			<strong>Date: </strong>{{hourFormat Date}} {{dayFormat Date}}
+		<div class="collapsible-header"><i class="material-icons left">trending_up</i>
+			<strong>Date: </strong>{{hourFormat dateStarted}} {{dayFormat dateStarted}}
 			{{#if groupID}}<strong>Group: </strong>{{/if}}{{parseGroupName groupID}}
 			{{#if peopleIDs}}<strong>Rowers: </strong>{{/if}}
 			{{#if groupID}}{{parseGroupUserNames groupID}}, {{/if}}{{parseUserNames peopleIDs}}
@@ -100,6 +132,7 @@
 					</div>
 					{{/if}}
 					<br />
+					<button type="submit" class="btn btn-primary orange session-start">Start session<i class="material-icons right">play_arrow</i></button>
 					 <!-- {{#quickRemoveButton collection="Events" _id=this._id class="waves-effect btn"}}Delete session<i class="material-icons left">not_interested</i>{{/quickRemoveButton}} -->
 				</p>
 			</div>
@@ -115,10 +148,54 @@
 				      {{> afQuickField name='boatID'}}
 				      {{> afQuickField name='time'}}
 				      {{> afQuickField name='training'}}  
-				      <button type="submit" class="btn btn-primary orange" id="session-start">Start session<i class="material-icons right">play_arrow</i></button>
+				      <button type="submit" class="btn btn-primary blue" >Modify session<i class="material-icons right">mode_edit</i></button>
 				    </fieldset>
 				    
 				  {{/autoForm}}
+				</p>
+			</div>
+		</div>
+	</li>
+</template>
+
+<template name="doneSessions">
+	Finished Sessions:
+	<ul class="collapsible z-depth-0">
+		{{#each eventsDone}}
+			{{> eventDone}}
+		{{/each}}
+	</ul>
+</template>
+
+<template name="eventDone">
+	<li>
+		<div class="collapsible-header"><i class="material-icons left">assessment</i>
+			<strong>Date: </strong>{{hourFormat dateStarted}} {{dayFormat dateStarted}}
+			{{#if groupID}}<strong>Group: </strong>{{/if}}{{parseGroupName groupID}}
+			{{#if peopleIDs}}<strong>Rowers: </strong>{{/if}}
+			{{#if groupID}}{{parseGroupUserNames groupID}}, {{/if}}{{parseUserNames peopleIDs}}
+			{{#if boatID}}<strong>Boat: </strong>{{/if}}{{parseBoatNames boatID}}
+		</div>
+
+		<div class="collapsible-body row">
+			<div class="col s6">
+				<p>	
+					{{#if distance}}<strong>Distance: </strong>{{distance}} kilometres<br />{{/if}}
+					{{#if time}}<strong>Estimated duration: </strong>{{time}} minutes<br />{{/if}}
+					{{#if comment}}<strong>Comments: </strong>{{comment}}<br />{{/if}}
+					{{#if training}}
+					<div class="row">
+						<div class="col s3">
+							<strong>Trainings: </strong> <!-- </strong>{{parseTraining training}} -->
+						</div>
+						<div class="col s9">
+							{{#each parseTrainings training}}
+								{{> trainingView}}
+							{{/each}}
+						</div>
+					</div>
+					{{/if}}
+					<br />
 				</p>
 			</div>
 		</div>
@@ -131,6 +208,7 @@
 	   	{{>rowNow}}
 	   	{{>ongoingSessions}}
 	   	{{>plannedSessions}}
+	   	{{>doneSessions}}
 	{{else}}
 		<br />
 		<h2>Loading...</h2>

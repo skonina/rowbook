@@ -101,6 +101,12 @@ Template.boathouseView.onRendered(function(){
 	}); 
 });
 
+var hooksObject = {
+	onSuccess: function(formType, result) {
+        $('select')[0].selectize.clear();
+    }
+};
+
 
 // AccountsTemplates.addField({
 //     _id: 'course',

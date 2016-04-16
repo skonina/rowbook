@@ -232,6 +232,13 @@ Meteor.methods({
 
   sessionEnd: function(session) {
     Events.update(session, {$set: {state: 'done'}});
+    var d2=new Date();
+    var d1 = Events.findOne(session).dateStarted;
+    var m1 = moment(d1);
+    var m2 = moment(d2);
+    var diff = m1.diff(m2, 'minutes');
+    Events.update(session, {$set: {dateEnded: d2}});
+    Events.update(session, {$set: {time: diff}});
   },
   sessionStart: function(session) {
     Events.update(session, {$set: {state: 'ongoing'}});
@@ -246,6 +253,8 @@ Meteor.methods({
 //     $('.collapsible').collapsible();
 //     console.log("Collapsible ON!");
 // }),
+// 
+
 
 
 

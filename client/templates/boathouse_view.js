@@ -143,6 +143,11 @@ Template.boathouseView.onRendered(function(){
 // };
 
 AutoForm.hooks({
+  newMessage: {
+    onSuccess:function(){
+      Bert.alert('Users have been notificated!','success', 'growl-top-right');
+    }
+  },
   newSession: {
       before:{
         update: function(doc) {

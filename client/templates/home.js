@@ -8,7 +8,7 @@
             // Accepts: default, success, info, warning, danger.
           };
 
-AutoForm.setDefaultTemplate('materialize');
+// AutoForm.setDefaultTemplate('materialize');
 AccountsTemplates.addField({
         _id: 'name',
         type: 'text',

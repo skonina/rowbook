@@ -23,8 +23,6 @@ AccountsTemplates.addFields([
       type: 'email',
       required: true,
       displayName: "email",
-      re: /.+@(.+){2,}\.(.+){2,}/,
-      errStr: 'Invalid email',
   },
   pwd
 ]);

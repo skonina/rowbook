@@ -2,6 +2,17 @@ UI.registerHelper("isBoathouse", function () {
     return Meteor.user().profile.name == 'Boathouse Admin';
 }),
 
+
+UI.registerHelper("notificationCount", function () {
+    return Notifications.find({read: false}).count();
+}),
+
+UI.registerHelper("newNotification", function () {
+    if(Notifications.find({read: false}).count())
+      return '#303F9F';
+    return 'grey';
+}),
+
 UI.registerHelper("allMessages", function () {
     return Notifications.find();
 }),

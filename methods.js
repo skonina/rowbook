@@ -242,7 +242,7 @@ Meteor.methods({
     
     
     // console.log(session);
-    // // console.log(doc);
+    // console.log(doc);
     // console.log(doc._id);
     // console.log(doc.modifier);
     // console.log(doc.modifier[0].distance);
@@ -289,12 +289,41 @@ Meteor.methods({
   parseUpload( data ) {
       // check( data, Array );
 
+      import { Random } from 'meteor/random';
+
       for ( let i = 0; i < data.length; i++ ) {
         let item   = data[ i ];
         let exists = Meteor.users.findOne({ "emails.address" : item.Email });
-
         if ( !exists ) {
-          Accounts.createUser({profile: {name: item.Efternamn + " " + item.Förnamn}, password: "akademiska", email: item.Email});
+          var tempPassword = Random.secret(7);
+          var tempUsername = item.Förnamn[0]+item.Förnamn[1]+item.Förnamn[2]+item.Efternamn[0]+item.Efternamn[1]+item.Efternamn[2];
+          SSR.compileTemplate('htmlEmail', Assets.getText('welcome_mail.html'));
+          
+          let emailData = {
+              name: item.Förnamn,
+              tempPassword: tempPassword,
+              tempUsername: tempUsername
+          };
+
+
+
+          console.log(tempPassword);
+          console.log(tempUsername);
+          console.log(SSR.render('htmlEmail', emailData));
+          
+          Accounts.createUser({profile: {name: item.Förnamn + " " + item.Efternamn},username: tempUsername, password: tempPassword, email: item.Email});
+          
+          
+          
+
+          Email.send({
+            from: "rowbooksystem@gmail.com",
+            to: item.Email,
+            subject: "Welcome to RowBook",
+            html: SSR.render('htmlEmail', emailData)
+          });
+
+
         } else {
           console.warn( 'Rejected. This item already exists.' );
         }
@@ -320,23 +349,42 @@ Meteor.methods({
 
   sendMessage: function(doc) {
     console.log(doc.message);
+    d = new Date();
     _.each(Meteor.users.find().fetch(), function(user){
       console.log(user._id);
       Notifications.insert({
-        owner: user._id, title: doc.message
+        owner: user._id, title: doc.message, date: d
       });
     });
+  },
+
+  readNotification: function(id) {
+    Notifications.update(id, {$set: {read: true}});
+
   } 
 
 
 
 
-
+  
 
 
 
 }); //end of Methods
+smtp = {
+    username: 'rowbooksystem',   // eg: server@gentlenode.com
+    password: 'flyingpotato',   // eg: 3eeP1gtizk5eziohfervU
+    server:   'smtp.gmail.com',  // eg: mail.gandi.net
+    port: 465
+  }
+process.env.MAIL_URL = 'smtp://' + encodeURIComponent(smtp.username) + ':' + encodeURIComponent(smtp.password) + '@' + encodeURIComponent(smtp.server) + ':' + smtp.port;
 
+// Email.send({
+//   from: "rowbooksystem@gmail.com",
+//   to: "teodor.wojcik@gmail.com",
+//   subject: "Meteor Can Send Emails via Gmail",
+//   text: "Its pretty easy to send emails via gmail."
+// });
 
 
 // paginatedEvents = new Meteor.Pagination(Events, {

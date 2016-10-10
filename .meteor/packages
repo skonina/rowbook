@@ -24,7 +24,6 @@ service-configuration@1.0.10
 alanning:roles
 momentjs:moment
 brylie:first-user-admin
-iron:router
 
 #autopublish             # Publish all data to the clients (for prototyping)
 #insecure                # Allow all DB writes from clients (for prototyping)
@@ -45,8 +44,6 @@ comerc:autoform-typeahead
 comerc:bs-typeahead
 chhib:selectize-bootstrap-3	
 
-aldeed:autoform-bs-datetimepicker
-tsega:bootstrap3-datetimepicker
 
 standard-minifier-css@1.2.0_1
 standard-minifier-js@1.2.0_1
@@ -56,9 +53,9 @@ harrison:papa-parse
 themeteorchef:bert
 reactive-var@1.0.10
 check@1.2.3
-alethes:pages
-yogiben:notifications
 shell-server
 fortawesome:fontawesome
 poetic:materialize-scss
 fourseven:scss
+email
+meteorhacks:ssr

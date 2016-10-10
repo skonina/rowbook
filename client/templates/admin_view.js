@@ -65,9 +65,9 @@ Template.eventsListAdmin.events({
   },
 });
 
-Schema = {};
 
-Schema.sendMessage = new SimpleSchema({
+
+Schemas.sendMessage = new SimpleSchema({
    message: {
       type: String,
       label: "New message",
@@ -77,7 +77,7 @@ Schema.sendMessage = new SimpleSchema({
 
 Template.sendMessage.helpers({
   messageSchema: function() {
-    return Schema.sendMessage;
+    return Schemas.sendMessage;
   }
 });
 

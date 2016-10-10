@@ -1,5 +1,12 @@
-
-// @import '_variables.scss';
+ Bert.defaults = {
+            hideDelay: 10000,
+            // Accepts: a number in milliseconds.
+            style: 'fixed-bottom',
+            // Accepts: fixed-top, fixed-bottom, growl-top-left,   growl-top-right,
+            // growl-bottom-left, growl-bottom-right.
+            type: 'info'
+            // Accepts: default, success, info, warning, danger.
+          };
 
 AutoForm.setDefaultTemplate('materialize');
 AccountsTemplates.addField({
@@ -83,14 +90,13 @@ Template.adminView.onRendered(function(){
 	}); 
 });
 
-Template.myNotificationsDropdown.replaces("notificationsDropdown");
-Template.myNotificationsDropdown.events({
-	'click .dropdown-button': function(event){
-		console.log(event);
-  }
+Template.notificationsDropdown.events({
+	'click .notification': function(event){
+		console.log(event.target.id);
+		Meteor.call('readNotification', event.target.id);
 
-});
-
+	}
+})
 
 // AccountsTemplates.addField({
 //     _id: 'course',

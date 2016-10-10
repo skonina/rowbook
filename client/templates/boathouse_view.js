@@ -1,10 +1,21 @@
 Template.eventOngoing.events({
   "click .session-end": function(event) {
-  	// console.log(this);
-  	// Meteor.call("sessionEnd",this);
-  }
+    text = 'trololo';
+    console.log(event);
+    console.log(Events.findOne(this._id));
+    console.log(event.target);
+    
+    setTimeout(function(){
+        
+        // var text = Events.findOne(this._id).diff;
+        Bert.alert({
+          // title: 'Bra jobbat!',
+          message: 'Bra jobbat!',
+          style:'growl-top-right',
+          type: 'success', });
+      },0);   
+}
 });
-
 Template.eventPlanned.events({
   "click .session-start": function(event) {
   	// console.log(this);
@@ -46,22 +57,21 @@ Template.doneSessions.onCreated(function() {
 Template.doneSessions.events({
 
   'click .events-prev': function(event, template){
-    
     var opt = template.opt.get();
   
     if(opt[0]!= 0){
       opt[0] -=10;
-      opt[1] -=10;
+      // opt[1] -=10;
     
       template.opt.set(opt);
       console.log(template.opt.get());
     };
   },
   'click .events-next': function(event, template){
-    if(Events.find().fetch().length != 0){
+    if(true){
       var opt = template.opt.get();
       opt[0] +=10;
-      opt[1] +=10;
+      // opt[1] +=10;
       
       template.opt.set(opt);
       console.log(template.opt.get());
@@ -149,6 +159,11 @@ AutoForm.hooks({
 	        $('#newSession select')[1].selectize.clear()
 	        $('#newSession select')[2].selectize.clear()
 	        $('#newSession select')[3].selectize.clear()
+          import { Random } from 'meteor/random';
+          text = '<center><h5>'+ Random.choice(quotes) + '</h5></center>';
+          console.log(quotes[3]);
+          console.log(text);
+          Bert.alert(text);
 	    }
 	},
   updateUsername: {
@@ -157,9 +172,11 @@ AutoForm.hooks({
           // $('#updateUsername select')[1].selectize.clear();
           // $('#updateUsername select')[2].selectize.clear();
           // $('#updateUsername select')[3].selectize.clear();
-          Bert.alert( 'Updated!', 'success', 'growl-top-right' );
+          
+          Bert.alert('Updated!','success', 'growl-top-right');
     }
   }    
 });
+
 
 

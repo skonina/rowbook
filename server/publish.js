@@ -6,6 +6,10 @@ Meteor.publish('allNotifications', function() {
 	return Notifications.find();
 });
 
+Meteor.publish('userNotifications', function(user) {
+	return Notifications.find({owner: user});
+});
+
 Meteor.publish('boats', function() {
 	return Boats.find();
 });

@@ -1,7 +1,7 @@
 
 // Schema = {};
 
-Schema.userUpdateSchema = new SimpleSchema({
+Schemas.userUpdateSchema = new SimpleSchema({
    name: {
       type: String,
       label: "Your new username",
@@ -22,7 +22,7 @@ Schema.userUpdateSchema = new SimpleSchema({
 
 Template.settingsUser.helpers({
   userUpdateSchema: function() {
-    return Schema.userUpdateSchema;
+    return Schemas.userUpdateSchema;
   }
 });
 
@@ -34,6 +34,7 @@ Template.userView.onCreated(function() {
     this.subscribe('boats');
     this.subscribe('boatTypes');
     this.subscribe('trainings');
+    this.subscribe('userNotifications', Meteor.user()._id)
     // this.subscribe('events');  
   });
 });

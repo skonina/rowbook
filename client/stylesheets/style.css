@@ -67,6 +67,9 @@
     float: right;
     text-align: center;
     margin-left: inherit;
- 	margin-right: inherit;
-       
+ 	margin-right: inherit;      
+}
+
+li .notRead {
+    background-color: #C5CAE9;
 }

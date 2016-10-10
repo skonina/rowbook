@@ -12,6 +12,8 @@ Accounts.onCreateUser(function(options, user) {
     return user;
   });
   
+ 
+
 
 // if ( Meteor.users.find().count() === 1 ) {
     // if (!Roles.userIsInRole(Meteor.users.findOne({'profile':{'name':'Teodor W.'}}), ['admin'])) {

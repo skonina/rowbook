@@ -1,3 +1,11 @@
+UI.registerHelper("isBoathouse", function () {
+    return Meteor.user().profile.name == 'Boathouse Admin';
+}),
+
+UI.registerHelper("allMessages", function () {
+    return Notifications.find();
+}),
+
 UI.registerHelper("boats", function () {
     return Boats.find();
 }),
@@ -15,7 +23,8 @@ UI.registerHelper("eventsAdmin", function () {
 }),
 
 UI.registerHelper("eventsUser", function () {
-    return Events.find({peopleIDs: Meteor.user()._id}).fetch()
+    // return Events.find({peopleIDs: Meteor.user()._id}).fetch();
+    return Events.find();
 }),
 
 UI.registerHelper("eventsOngoing", function () {

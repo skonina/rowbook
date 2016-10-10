@@ -4,28 +4,27 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-base             # Packages every Meteor app needs to have
-mobile-experience       # Packages for a great mobile UX
-mongo                   # The database Meteor supports right now
-blaze-html-templates    # Compile .html files into Meteor Blaze views
-session                 # Client-side reactive dictionary for your app
-jquery                  # Helpful client-side library
-tracker                 # Meteor's client-side reactive programming library
+meteor-base@1.0.4             # Packages every Meteor app needs to have
+mobile-experience@1.0.4       # Packages for a great mobile UX
+mongo@1.1.12_1                   # The database Meteor supports right now
+blaze-html-templates@1.0.4    # Compile .html files into Meteor Blaze views
+session@1.1.6                 # Client-side reactive dictionary for your app
+jquery@1.11.9                  # Helpful client-side library
+tracker@1.1.0                 # Meteor's client-side reactive programming library
 
-es5-shim                # ECMAScript 5 compatibility for older browsers.
-ecmascript              # Enable ECMAScript2015+ syntax in app code
+es5-shim@4.6.14_1                # ECMAScript 5 compatibility for older browsers.
+ecmascript@0.5.8_1              # Enable ECMAScript2015+ syntax in app code
 
 useraccounts:materialize
-accounts-password
-accounts-google
-accounts-facebook
-accounts-ui
-materialize:materialize
-service-configuration
+accounts-password@1.3.0
+accounts-google@1.0.10
+#accounts-facebook
+#accounts-ui
+service-configuration@1.0.10
 alanning:roles
 momentjs:moment
 brylie:first-user-admin
-kadira:flow-router
+iron:router
 
 #autopublish             # Publish all data to the clients (for prototyping)
 #insecure                # Allow all DB writes from clients (for prototyping)
@@ -34,6 +33,9 @@ aldeed:collection2
 aldeed:autoform
 gildaspk:autoform-materialize
 aldeed:delete-button
+aldeed:template-extension
+
+
 
 natestrauser:select2
 aldeed:autoform-select2
@@ -46,7 +48,17 @@ chhib:selectize-bootstrap-3
 aldeed:autoform-bs-datetimepicker
 tsega:bootstrap3-datetimepicker
 
-standard-minifier-css
-standard-minifier-js
+standard-minifier-css@1.2.0_1
+standard-minifier-js@1.2.0_1
 
 zhenya:moment-precise-range
+harrison:papa-parse
+themeteorchef:bert
+reactive-var@1.0.10
+check@1.2.3
+alethes:pages
+yogiben:notifications
+shell-server
+fortawesome:fontawesome
+poetic:materialize-scss
+fourseven:scss

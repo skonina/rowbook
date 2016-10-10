@@ -1,32 +1,113 @@
 <template name="eventsListUser">
 	<ul class="card collapsible">
 		<li class="card-content">
-			<span class="card-title collapsible-header">Sessions</span>
+			<span class="card-title collapsible-header">Sessions <i class="material-icons" style="vertical-align: top;">trending_up</i></span>
 			<div class="collapsible-body">
 				<br />
 
+				<!-- {{>paginatedEvents}} -->
+				<!-- {{> pages}}
+				{{> pagesNav}}
+				 -->
+
 				<ul class="collapsible z-depth-0">
 					{{#each eventsUser}}
-						{{> event}}
-					{{/each}}
+						{{> eventOngoing}}
+					{{/each}}					
 				</ul>
 
-				<ul class="card collapsible z-depth-0">
+				<center>
+
+					<button type="submit" class="btn btn-flat events-prev waves-effect waves-light">Previous<i class="material-icons left">chevron_left</i></button>
+
+					<button type="submit" class="btn btn-flat events-next waves-effect waves-light">Next<i class="material-icons right">chevron_right</i></button>
+				</center>
+				<br />
+
+				<!-- <ul class="card collapsible z-depth-0">
 					<li class="card-content ">
 						<span class="card-title collapsible-header">Add session</span>
 						{{> insertEventForm}}
 					</li>
-				</ul>
+				</ul> -->
 			</div>
 		</li>
 	</ul>
 </template>
 
+<template name="paginatedEvents">
+	{{> pages}}
+	{{> pagesNav}}
+</template>
+
+<template name="pageEvent">
+	LOOL
+</template>
+
+
+<template name="settingsUser">
+	<ul class="card collapsible">
+		<li class="card-content">
+			<span class="card-title collapsible-header">Settings <i class="material-icons" style="vertical-align: top;">settings</i></span>
+			<div class="collapsible-body">
+				<p>
+
+				<!-- <h4> Update profile </h4> -->
+
+				{{> quickForm id="updateUsername" schema=userUpdateSchema type="method" meteormethod="userUpdate"}}
+				</p>
+
+
+				<!-- <form class="updateUsername">
+					     <input type="text" name="text" placeholder="Your new username" />
+					</form> -->
+
+				<!-- <ul class="card collapsible z-depth-0">
+					<li class="card-content ">
+						<span class="card-title collapsible-header">Add session</span>
+						{{> insertEventForm}}
+					</li>
+				</ul> -->
+			</div>
+		</li>
+	</ul>
+</template>
+
+<template name="statsUser">
+	{{#with currentUser}}
+	<ul class="card collapsible">
+		<li class="card-content">
+			<span class="card-title collapsible-header">Statistics <i class="material-icons" style="vertical-align: top;">assessment</i></span>
+			<div class="collapsible-body">
+				<p>	
+					<strong>Total rowed distance:</strong> {{totalDistance}} kilometers<br />
+
+					<strong>Total time spent on the water:</strong> {{totalTime}} minutes<br />
+				</p>
+					
+
+				<!-- <ul class="card collapsible z-depth-0">
+					<li class="card-content ">
+						<span class="card-title collapsible-header">Add session</span>
+						{{> insertEventForm}}
+					</li>
+				</ul> -->
+			</div>
+		</li>
+	</ul>
+	{{/with}}
+</template>
+
+
+
+
+
 <template name="userView">
 	 {{#if Template.subscriptionsReady}}
 	   	{{>eventsListUser}}
+	   	{{>statsUser}}
+	   	{{>settingsUser}}
 	{{else}}
-		<br />
-		<h2>Loading...</h2>
+		{{>Loading}}
 	{{/if}}
 </template>

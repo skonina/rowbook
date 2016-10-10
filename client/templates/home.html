@@ -7,12 +7,29 @@
 <nav>
  <div class="nav-wrapper z-depth-1" style="background-color: white">
    <a href="#" class="brand-logo center" style="color: #444;" onclick="window.location.reload(true);">Rowbook</a>
-   <div id="nav-mobile" class="right" style="color: #444; margin-right: 2em;">
-      {{#if currentUser}}
-        Welcome {{currentUser.profile.name}}!
-        {{> atNavButton}}
-      {{/if}}
-    </div>
+   {{#if currentUser}}
+     {{#if isBoathouse }}
+        <div class="left" style="color: #444; margin-left: 2em;">
+           <strong>Row strong</strong>
+         </div>
+        <ul id="nav-mobile" class="right" style="color: black, margin-right: 2em;">
+             
+             <li>{{> notificationsDropdown}}</li>
+             <li>{{> atNavButton}}</li>
+         </ul>
+       {{else}}
+          <div class="left" style="color: #444; margin-left: 2em;">
+             Welcome <strong>{{currentUser.profile.name}}</strong>! <small>({{currentUser.username}})</small>
+           </div>
+          <ul id="nav-mobile" class="right" style="color: black, margin-right: 2em;">
+               {{#if isInRole 'admin'}}
+                  {{else}}
+                      <li>{{> notificationsDropdown}}</li>
+                {{/if}}
+               <li>{{> atNavButton}}</li>
+           </ul>
+         {{/if}}
+    {{/if}}
    <!-- <ul id="nav-mobile" class="right hide-on-med-and-down">
      <li><a href="sass.html">Sass</a></li>
      <li><a href="badges.html">Compon  ents</a></li>
@@ -40,7 +57,7 @@
           {{#if isInRole 'admin'}}
             {{> adminView}}
           {{else}}
-            {{#if currentUser.profile.name = 'Boathouse Panel' }}
+            {{#if isBoathouse }}
               {{> boathouseView}}
             {{else}}
               {{> userView}}
@@ -51,3 +68,39 @@
     </div>
 
 </body>
+
+
+<template name="myNotificationsDropdown">
+    <a class="dropdown-button" data-activates="dropdown1" data-beloworigin="true">
+    <ul>
+      <li><i class="fa fa-2x fa-bell right" style="color: grey;"></i></li>
+      <li>
+        <span class="fa-stack fa-lg right" style="color: grey; bottom: 6px; font-size: 0.8em;">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-inverse fa-stack-1x">{{notificationCount}}</i>
+         </span>
+      </li>
+    </ul>
+
+    </a>
+
+    <ul id="dropdown1" class="dropdown-content" data-beloworigin="true" style="top: 30px !important;">
+      {{#each Notifications readFirst=false}} 
+        <li class="notification">
+          <a class="black-text "><i class=""></i>{{title}} <i class="fa fa-times-circle right" aria-hidden="true"></i></a>
+
+        </li>
+      {{/each}}
+    </ul>
+</template>
+
+<template name="myNotifications">
+  <ul class="notification-list">
+    {{#each Notifications}}
+      <li>
+        <a class="{{class}}"><i class=""></i> {{title}}</a>
+
+      </li>
+    {{/each}}
+  </ul>
+</template>

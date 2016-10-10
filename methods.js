@@ -230,32 +230,119 @@ Meteor.methods({
     Meteor.users.update(user, {$inc: {[EventList.findOne(event).eventType]: -1}});
   },
 
-  sessionEnd: function(session) {
-    Events.update(session, {$set: {state: 'done'}});
+  sessionEnd: function(doc) {
+
+
+
+    Events.update(doc._id, doc.modifier);
+    Events.update(doc._id, {$set: {state: 'done'}});
+    var session = Events.findOne(doc._id);
+
+
+    
+    
+    // console.log(session);
+    // // console.log(doc);
+    // console.log(doc._id);
+    // console.log(doc.modifier);
+    // console.log(doc.modifier[0].distance);
+    // console.log(doc.modifier['$set'].distance);
+
+
+    
+    // console.log(this);
+    // console.log(documentId);
+    
+    
+    
+    // console.log(session.distance);
+    // console.log(session.peopleIDs);
+    
+    // if(session.state)
+
     var d2=new Date();
-    var d1 = Events.findOne(session).dateStarted;
+    var d1 = session.dateStarted;
     var m1 = moment(d1);
     var m2 = moment(d2);
-    var diff = m1.diff(m2, 'minutes');
-    Events.update(session, {$set: {dateEnded: d2}});
-    Events.update(session, {$set: {time: diff}});
+    var diff = m2.diff(m1, 'minutes');
+    Events.update(doc._id, {$set: {dateEnded: d2}});
+    Events.update(doc._id, {$set: {time: diff}});
+    // Events.update(session._id, {$set: {comment: doc.comment}});
+    var session = Events.findOne(doc._id);
+    console.log(session);
+    
+    _.each(session.peopleIDs, function (user) {
+      console.log(user);
+      Meteor.users.update(user, {$inc: {totalDistance: session.distance}});
+      Meteor.users.update(user, {$inc: {totalTime: session.time}});
+      
+    });
+
   },
+
   sessionStart: function(session) {
     Events.update(session, {$set: {state: 'ongoing'}});
-  }
-});
-
-// UI.registerHelper("users", function () {
-//   return Meteor.users.find();
-// }),
-
-// UI.registerHelper("initCollapsible", function () {
-//     $('.collapsible').collapsible();
-//     console.log("Collapsible ON!");
-// }),
-// 
+  },
 
 
 
+  parseUpload( data ) {
+      // check( data, Array );
 
+      for ( let i = 0; i < data.length; i++ ) {
+        let item   = data[ i ];
+        let exists = Meteor.users.findOne({ "emails.address" : item.Email });
+
+        if ( !exists ) {
+          Accounts.createUser({profile: {name: item.Efternamn + " " + item.Förnamn}, password: "akademiska", email: item.Email});
+        } else {
+          console.warn( 'Rejected. This item already exists.' );
+        }
+      }
+    },
+
+
+  userUpdate: function(doc) {
+    import { Accounts } from 'meteor/accounts-base';
+
+    // check(doc, Schema.userUpdateSchema);
+
+    console.log(doc);
+    console.log(Meteor.user()._id);
+
+    if(doc.name)
+      Accounts.setUsername(Meteor.user()._id, doc.name);
+    if(doc.password)
+      Accounts.setPassword(Meteor.user()._id, doc.password);
+    if(doc.totalRowedDistance)
+      Meteor.users.update(Meteor.user()._id, {$set: {totalDistance: doc.totalRowedDistance}});
+  },
+
+  sendMessage: function(doc) {
+    console.log(doc.message);
+    _.each(Meteor.users.find().fetch(), function(user){
+      console.log(user._id);
+      Notifications.insert({
+        owner: user._id, title: doc.message
+      });
+    });
+  } 
+
+
+
+
+
+
+
+
+}); //end of Methods
+
+
+
+// paginatedEvents = new Meteor.Pagination(Events, {
+//   perPage:6,
+//   templateName: 'paginatedEvents',
+//   itemTemplate: 'eventDone'
+
+// });
 

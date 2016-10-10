@@ -4,6 +4,8 @@
     
 Accounts.onCreateUser(function(options, user) {
     user.events = [];
+    user.totalTime = 0;
+    user.totalDistance = 0;
     if (options.profile) {
       user.profile = options.profile;
     }

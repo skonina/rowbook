@@ -1,4 +1,6 @@
 
+// @import '_variables.scss';
+
 AutoForm.setDefaultTemplate('materialize');
 AccountsTemplates.addField({
         _id: 'name',
@@ -6,6 +8,26 @@ AccountsTemplates.addField({
         required: true,
         displayName: 'Name & Surname',
     });
+var pwd = AccountsTemplates.removeField('password');
+AccountsTemplates.removeField('email');
+AccountsTemplates.addFields([
+  {
+      _id: "username",
+      type: "text",
+      displayName: "username",
+      required: true,
+      minLength: 5,
+  },
+  {
+      _id: 'email',
+      type: 'email',
+      required: true,
+      displayName: "email",
+      re: /.+@(.+){2,}\.(.+){2,}/,
+      errStr: 'Invalid email',
+  },
+  pwd
+]);
 
 Template.usersList.helpers({
 	users() {
@@ -36,8 +58,8 @@ Template.adminView.onCreated(function() {
 		this.subscribe('boats');
 		this.subscribe('boatTypes');
 		this.subscribe('trainings');
-		this.subscribe('events');
-
+		this.subscribe('allNotifications');
+		// this.subscribe('events');
 	});
 });
 	
@@ -48,64 +70,28 @@ Template.adminView.onRendered(function(){
 	    	Tracker.afterFlush(() => {
 				$('.collapsible').collapsible();
 				console.log("Collapsible ON!");
+				$('.dropdown-button').dropdown({
+				     inDuration: 300,
+				     outDuration: 225,
+				     constrain_width: false, // Does not change width of dropdown to that of the activator
+				     // hover: true, // Activate on hover
+				     // gutter: 50, // Spacing from edge
+				     belowOrigin: true, // Displays dropdown below the button
+				     alignment: 'right' // Displays dropdown with edge aligned to the left of button
+				   }
+				 );
 			});
 		}
 	}); 
 });
 
-Template.userView.onCreated(function() {
-	this.autorun(() => {
-		this.subscribe('users');
-		this.subscribe('groups');
-		this.subscribe('boats');
-		this.subscribe('boatTypes');
-		this.subscribe('trainings');
-		this.subscribe('events');
+Template.myNotificationsDropdown.replaces("notificationsDropdown");
+Template.myNotificationsDropdown.events({
+	'click .dropdown-button': function(event){
+		console.log(event);
+  }
 
-	});
 });
-	
-
-Template.userView.onRendered(function(){
-	this.autorun(() => {
-	    if (this.subscriptionsReady()) {
-	    	Tracker.afterFlush(() => {
-				$('.collapsible').collapsible();
-				console.log("Collapsible ON!");
-			});
-		}
-	}); 
-});
-
-Template.boathouseView.onCreated(function() {
-	this.autorun(() => {
-		this.subscribe('users');
-		this.subscribe('groups');
-		this.subscribe('boats');
-		this.subscribe('boatTypes');
-		this.subscribe('trainings');
-		this.subscribe('events');
-
-	});
-});
-	
-
-Template.boathouseView.onRendered(function(){
-	this.autorun(() => {
-	    if (this.subscriptionsReady()) {
-	    	Tracker.afterFlush(() => {
-				$('.collapsible').collapsible();
-				console.log("Collapsible ON!");
-			});
-		}
-	}); 
-});
-
-var hooksObject = {
-	onSuccess: function(formType, result) {
-        $('select')[0].selectize.clear();
-    }
-};
 
 
 // AccountsTemplates.addField({

@@ -20,7 +20,7 @@
 
 						<div class="row">
 								<div class="col offset-s3 s6">
-									 <button type="submit" class="btn btn-primary orange session-new" style="display: block; width: 100%;"><span style="vertical-align: top;">Start session</span><i class="material-icons" style="vertical-align: top;">play_arrow</i></button>
+									 <button type="submit" class="btn btn-primary blue darken-3 session-new" style="display: block; width: 100%;"><span style="vertical-align: top;">Start session</span><i class="material-icons" style="vertical-align: top;">play_arrow</i></button>
 								</div>
 						</div>
 						
@@ -81,7 +81,7 @@
 			<div class="col s6">
 				<p>
 				<!-- {{> quickForm collection="Events" doc=this id=this._id type="update" buttonContent=false autosave=true}} -->
-				{{#autoForm collection="Events" doc=this id=this._id type="update" buttonContent=false}}
+				{{#autoForm collection="Events" doc=this id=this._id type="method-update" meteormethod="sessionEnd" buttonContent=false singleMethodArgument=true}}
 				    <fieldset>
 				      <legend>Check the session</legend>
 				      {{> afQuickField name='comment'}}
@@ -177,6 +177,14 @@
 					{{> eventDone}}
 				{{/each}}
 			</ul>
+
+			<center>
+				<button type="submit" class="btn btn-flat events-prev waves-effect waves-light">Previous<i class="material-icons left">chevron_left</i></button>
+
+				<button type="submit" class="btn btn-flat events-next waves-effect waves-light">Next<i class="material-icons right">chevron_right</i></button>
+			</center>
+			<br />
+
 		</div>
 	</div>
 </template>
@@ -194,6 +202,7 @@
 		<div class="collapsible-body row">
 			<div class="col s6">
 				<p>	
+					<!-- <strong>Time: </strong>{{time}} minutes<br /> -->
 					{{#if distance}}<strong>Distance: </strong>{{distance}} kilometres<br />{{/if}}
 					{{#if time}}<strong>Estimated duration: </strong>{{time}} minutes<br />{{/if}}
 					{{#if comment}}<strong>Comments: </strong>{{comment}}<br />{{/if}}
@@ -224,8 +233,7 @@
 	   	{{>plannedSessions}}
 	   	{{>doneSessions}}
 	{{else}}
-		<br />
-		<h2>Loading...</h2>
+		{>Loading}}
 	{{/if}}
 </template>
 

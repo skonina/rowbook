@@ -13,7 +13,7 @@ Schemas.userUpdateSchema = new SimpleSchema({
       optional: true
    },
    totalRowedDistance: {
-		type: String,
+		type: Number,
 		label: "Your new total rowed distance",
 		optional: true
    }

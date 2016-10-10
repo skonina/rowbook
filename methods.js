@@ -273,8 +273,11 @@ Meteor.methods({
     
     _.each(session.peopleIDs, function (user) {
       console.log(user);
-      Meteor.users.update(user, {$inc: {totalDistance: session.distance}});
-      Meteor.users.update(user, {$inc: {totalTime: session.time}});
+      var dist = Meteor.users.findOne(user).totalDistance + session.distance;
+      var diff = Meteor.users.findOne(user).totalTime + session.time;
+      
+      Meteor.users.update(user, {$set: {totalDistance: dist}});
+      Meteor.users.update(user, {$set: {totalTime: diff}});
       
     });
 

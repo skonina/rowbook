@@ -273,8 +273,8 @@ Meteor.methods({
     
     _.each(session.peopleIDs, function (user) {
       console.log(user);
-      var dist = Meteor.users.findOne(user).totalDistance + session.distance;
-      var diff = Meteor.users.findOne(user).totalTime + session.time;
+      var dist = Number(Meteor.users.findOne(user).totalDistance) + Number(session.distance);
+      var diff = Number(Meteor.users.findOne(user).totalTime) + Number(session.time);
       
       Meteor.users.update(user, {$set: {totalDistance: dist}});
       Meteor.users.update(user, {$set: {totalTime: diff}});
@@ -286,6 +286,10 @@ Meteor.methods({
   sessionStart: function(session) {
     Events.update(session, {$set: {state: 'ongoing'}});
   },
+
+  // boatReport: function(doc){
+  //   consoule.log
+  // }
 
 
 
@@ -310,11 +314,11 @@ Meteor.methods({
 
 
 
-          console.log(tempPassword);
-          console.log(tempUsername);
+          console.log(item.Typ);
+          console.log(item.Personnummer);
           console.log(SSR.render('htmlEmail', emailData));
           
-          Accounts.createUser({profile: {name: item.Förnamn + " " + item.Efternamn},username: tempUsername, password: tempPassword, email: item.Email});
+          Accounts.createUser({profile: {name: item.Förnamn + " " + item.Efternamn, personnummer: Number(item.Personnummer), membership: item.Typ,},username: tempUsername, password: tempPassword, email: item.Email, totalDistance: Number(item.Distance)});
           
           
           
@@ -364,7 +368,30 @@ Meteor.methods({
   readNotification: function(id) {
     Notifications.update(id, {$set: {read: true}});
 
+  },
+
+  sendDamageEmail: function(doc) {
+
+    SSR.compileTemplate('htmlEmailDamage', Assets.getText('damage_mail.html'));
+
+    let emailData2 = {
+        a: doc.reports,
+        b: doc.name
+    };
+
+    console.log(doc.name);
+
+    
+
+    Email.send({
+      from: "rowbooksystem@gmail.com",
+      to: "teodor.wojcik@gmail.com",
+      subject: "Damage reported at ARF",
+      html: SSR.render('htmlEmailDamage', emailData2)
+    });
   } 
+
+
 
 
 

@@ -56,7 +56,8 @@
 		{{#if peopleIDs}}<strong>Rowers: </strong>{{/if}}
 		{{#if groupID}}{{parseGroupUserNames groupID}}, {{/if}}{{parseUserNames peopleIDs}}
 		{{#if boatID}}<strong>Boat: </strong>{{/if}}{{parseBoatNames boatID}}</div>
-		<div class="collapsible-body row">
+		<div class="collapsible-body">
+		<div class="row">
 			<div class="col s6">
 				<p>	
 					{{#if distance}}<strong>Distance: </strong>{{distance}} kilometres<br />{{/if}}
@@ -74,6 +75,19 @@
 						</div>
 					</div>
 					{{/if}}
+					{{#each boats_trained this.boatID}}
+					<!-- {{> quickForm collection="Boats" doc=this id=random type="update" buttonContent=false autosave=false fields="reports"}} -->
+					
+
+					{{#autoForm collection="Boats" doc=this id=random type="update" autosave=true buttonContent=false}}
+					    <fieldset>
+					      <legend>{{this.name}}</legend>
+					      {{> afQuickField name='reports' placeholder=boatsCondition}} 
+					      <button type="submit" class="btn btn-flat damage">Report damage<i class="material-icons right">report_problem</i></button>
+					    </fieldset>   
+					  {{/autoForm}}
+
+					  {{/each}}
 					<br />
 					 <!-- {{#quickRemoveButton collection="Events" _id=this._id class="waves-effect btn"}}Delete session<i class="material-icons left">not_interested</i>{{/quickRemoveButton}} -->
 				</p>
@@ -87,14 +101,18 @@
 				      {{> afQuickField name='comment'}}
 				      {{> afQuickField name='distance'}}   
 				      <button type="submit" class="btn btn-primary green session-end">Mark as done!<i class="material-icons right">done</i></button>
-				    </fieldset>
-				    
+				    </fieldset>   
 				  {{/autoForm}}
 				</p>
 			</div>
 		</div>
+		
+		</div>
+
 	</li>
 </template>
+
+
 
 
 <template name="plannedSessions">

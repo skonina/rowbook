@@ -2,6 +2,11 @@ UI.registerHelper("isBoathouse", function () {
     return Meteor.user().profile.name == 'Boathouse Admin';
 }),
 
+UI.registerHelper("random", function () {
+  import { Random } from 'meteor/random';
+    return Random.secret(10);
+  });
+
 
 UI.registerHelper("notificationCount", function () {
     return Notifications.find({read: false}).count();
@@ -80,6 +85,38 @@ UI.registerHelper("parseBoatNames", function (boatIDs){
     q.push(" " + Boats.findOne(a).name);
   });
   return q;
+}),
+
+UI.registerHelper("boatsCondition", function (){
+  return Boats.findOne(this.boatID[0]).reports;
+  console.log("!!!");
+  console.log(this);
+  console.log(event);
+}),
+UI.registerHelper("boat", function (){
+  return Boats.findOne(this.boatID[0]);
+  console.log("!!!");
+  console.log(this);
+  console.log(event);
+}),
+
+UI.registerHelper("boats_trained", function (c){
+  var a = [] ;
+console.log('!');
+  console.log(this);
+  console.log(this.boatID);
+
+  _.each(c, function(q){
+    a.push(Boats.findOne(q));
+    console.log(q);
+    console.log(Boats.findOne());
+  }); 
+  console.log(a);
+  return a;
+  // return Boats.findOne(this.boatID[0]);
+  console.log("!!!");
+  console.log(this);
+  console.log(event);
 }),
 
 

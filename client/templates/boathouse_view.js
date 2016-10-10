@@ -30,6 +30,23 @@ Template.rowNow.events({
   }
 });
 
+Template.eventOngoing.events({
+  "click .damage": function(event) {
+    var a = this;
+    console.log(this.name);
+    console.log(event);
+    var doc = {}
+    doc.message = (this.name + " got damaged: " + this.reports);
+    Meteor.call("sendMessage", doc);
+    Meteor.call("sendDamageEmail", a);
+    Bert.alert('Reported!','success', 'growl-top-right');
+    
+    console.log(doc.message);
+    // Meteor.call("sessionStart",this._id);
+  }
+});
+
+
 Template.ongoingSessions.onCreated(function() {
   var self = this;
   self.opt = new ReactiveVar([0,100]);

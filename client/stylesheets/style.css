@@ -73,3 +73,7 @@
 li .notRead {
     background-color: #C5CAE9;
 }
+
+.damage:hover {
+    background-color: red!important;
+}

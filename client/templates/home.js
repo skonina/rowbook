@@ -16,7 +16,7 @@ AccountsTemplates.addFields([
       type: "text",
       displayName: "username",
       required: true,
-      minLength: 5,
+      // minLength: 5,
   },
   {
       _id: 'email',

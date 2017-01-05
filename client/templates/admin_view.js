@@ -17,7 +17,7 @@ Template.userImport.events({
       complete( results, file ) {
         Meteor.call( 'parseUpload', results.data, ( error, response ) => {
           if ( error ) {
-            console.log( error.reason );
+            // console.log( error.reason );
           } else {
             // template.uploading.set( false );
             // Bert.alert( 'Upload complete!', 'success', 'growl-top-right' );
@@ -50,7 +50,7 @@ Template.eventsListAdmin.events({
       // opt[1] -=10;
     
       template.opt.set(opt);
-      console.log(template.opt.get());
+      // console.log(template.opt.get());
     };
   },
   'click .events-next': function(event, template){
@@ -60,7 +60,7 @@ Template.eventsListAdmin.events({
       // opt[1] +=10;
       
       template.opt.set(opt);
-      console.log(template.opt.get());
+      // console.log(template.opt.get());
     };
   },
 });
@@ -80,30 +80,3 @@ Template.sendMessage.helpers({
     return Schemas.sendMessage;
   }
 });
-
-// Template.sendMessage.events({
-//   'submit .newMessage'(event) {
-//       event.preventDefault();
-     
-//         // Get value from form element
-//         // const target = event.target;
-//         // const text = target.text.value;
-
-//         console.log(event.target);
-//         console.log(event.target.text);
-//         console.log(event.target);
-        
-
-
-//         // Meteor.call('')
-     
-//         // // Insert a task into the collection
-//         // Tasks.insert({
-//         //   text,
-//         //   createdAt: new Date(), // current time
-//         // });
-
-//         // Clear form
-  
-//     }
-// });

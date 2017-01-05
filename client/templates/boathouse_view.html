@@ -64,15 +64,10 @@
 					{{#if time}}<strong>Estimated duration: </strong>{{time}} minutes<br />{{/if}}
 					{{#if comment}}<strong>Comments: </strong>{{comment}}<br />{{/if}}
 					{{#if training}}
-					<div class="row">
-						<div class="col s3">
-							<strong>Trainings: </strong> <!-- </strong>{{parseTraining training}} -->
-						</div>
-						<div class="col s9">
-							{{#each parseTrainings training}}
-								{{> trainingView}}
-							{{/each}}
-						</div>
+					<div class="row trainings">
+						{{#each parseTrainings training}}
+							{{> trainingView}}
+						{{/each}}
 					</div>
 					{{/if}}
 					{{#each boats_trained this.boatID}}
@@ -225,15 +220,10 @@
 					{{#if time}}<strong>Estimated duration: </strong>{{time}} minutes<br />{{/if}}
 					{{#if comment}}<strong>Comments: </strong>{{comment}}<br />{{/if}}
 					{{#if training}}
-					<div class="row">
-						<div class="col s3">
-							<strong>Trainings: </strong> <!-- </strong>{{parseTraining training}} -->
-						</div>
-						<div class="col s9">
+					<div class="row trainings">
 							{{#each parseTrainings training}}
 								{{> trainingView}}
 							{{/each}}
-						</div>
 					</div>
 					{{/if}}
 					<br />
@@ -248,10 +238,10 @@
 	   	<!-- {{>eventsListUser}} -->
 	   	{{>rowNow}}
 	   	{{>ongoingSessions}}
-	   	<!-- {{>plannedSessions}} -->
+	   	{{>plannedSessions}}
 	   	{{>doneSessions}}
 	{{else}}
-		{>Loading}}
+		{{>Loading}}
 	{{/if}}
 </template>
 

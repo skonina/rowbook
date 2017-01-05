@@ -74,7 +74,7 @@ Template.adminView.onRendered(function(){
 	    if (this.subscriptionsReady()) {
 	    	Tracker.afterFlush(() => {
 				$('.collapsible').collapsible();
-				console.log("Collapsible ON!");
+				// console.log("Collapsible ON!");
 				$('.dropdown-button').dropdown({
 				     inDuration: 300,
 				     outDuration: 225,
@@ -92,64 +92,8 @@ Template.adminView.onRendered(function(){
 
 Template.notificationsDropdown.events({
 	'click .notification': function(event){
-		console.log(event.target.id);
+		// console.log(event.target.id);
 		Meteor.call('readNotification', event.target.id);
 
 	}
 })
-
-// AccountsTemplates.addField({
-//     _id: 'course',
-//     type: "select",
-//     required: true,
-//     displayName: "Your new KTH department",
-//     select: [
-//         {
-//         text: "Apple",
-//         value: "aa",
-//       }, {
-//         text: "Banana",
-//         value: "bb",
-//       }, {
-//         text: "Carrot",
-//         value: "cc",
-//       },
-//     ],
-// });
-
-
-// Deps.autorun(function() {
-//     Meteor.subscribe('users');
-//     Meteor.subscribe('events');
-//     Meteor.subscribe('limit');
-    
-// });
-
-
-
-
-// UI.registerHelper("users", function () {
-//   return Meteor.users.find();
-// }),
-
-// UI.registerHelper("initCollapsible", function () {
-//     $('.collapsible').collapsible();
-//     console.log("Collapsible ON!");
-// }),
-
-// UI.registerHelper("boats", function () {
-//     return Boats.find();
-// }),
-
-// UI.registerHelper("groups", function () {
-//     return Groups.find();
-// }),
-
-// UI.registerHelper("events", function () {
-//     return Events.find();
-// }),
-
-// UI.registerHelper("peopleInGroup", function (a) {
-//     return Groups.findOne(a).fetch();
-// })
-    

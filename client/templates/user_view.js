@@ -58,7 +58,7 @@ Template.eventsListUser.events({
       // opt[1] -=5;
     
       template.opt.set(opt);
-      console.log(template.opt.get());
+      // console.log(template.opt.get());
     };
   },
   'click .events-next': function(event, template){
@@ -68,7 +68,7 @@ Template.eventsListUser.events({
       // opt[1] +=5;
       
       template.opt.set(opt);
-      console.log(template.opt.get());
+      // console.log(template.opt.get());
     };
   },
   
@@ -90,7 +90,7 @@ Template.userView.onRendered(function(){
              alignment: 'right' // Displays dropdown with edge aligned to the left of button
            }
          );
-        console.log("Collapsible ON!");
+        // console.log("Collapsible ON!");
       });
     }
   }); 

@@ -1,6 +1,7 @@
 <head>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <title class='center-align'>Rowbook</title>
+  <link rel="shortcut icon" href="/favicon.ico?v=2" />
 </head>
 
 <body>
@@ -10,7 +11,11 @@
    {{#if currentUser}}
      {{#if isBoathouse }}
         <div class="left" style="color: #444; margin-left: 2em;">
-           <strong>Row strong</strong>
+           <ul>
+              <li><img src="row1.svg" style="border: 0;height: 35px;margin-top: 13px;padding-right: 10px;"></li>
+              <li>Row effortlessly</li>
+            </ul>
+               
          </div>
         <ul id="nav-mobile" class="right" style="color: black, margin-right: 2em;">
              
@@ -19,7 +24,16 @@
          </ul>
        {{else}}
           <div class="left" style="color: #444; margin-left: 2em;">
-             Welcome <strong>{{currentUser.profile.name}}</strong>! <small>({{currentUser.username}})</small>
+             <ul>
+               <li>
+                 <img src="row1.svg" style="border: 0;height: 35px;margin-top: 13px;padding-right: 10px;">
+               </li>
+                Welcome <strong>{{currentUser.profile.name}}</strong>! <small>({{currentUser.username}})</small>
+                <li>
+                  
+                </li>
+              </ul> 
+
            </div>
           <ul id="nav-mobile" class="right" style="color: black, margin-right: 2em;">
                {{#if isInRole 'admin'}}

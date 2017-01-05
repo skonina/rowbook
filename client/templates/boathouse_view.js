@@ -1,9 +1,9 @@
 Template.eventOngoing.events({
   "click .session-end": function(event) {
     text = 'trololo';
-    console.log(event);
-    console.log(Events.findOne(this._id));
-    console.log(event.target);
+    // console.log(event);
+    // console.log(Events.findOne(this._id));
+    // console.log(event.target);
     
     setTimeout(function(){
         
@@ -25,7 +25,7 @@ Template.eventPlanned.events({
 
 Template.rowNow.events({
   "click .session-new": function(event) {
-  	console.log(this);
+  	// console.log(this);
   	// Meteor.call("sessionStart",this._id);
   }
 });
@@ -33,16 +33,20 @@ Template.rowNow.events({
 Template.eventOngoing.events({
   "click .damage": function(event) {
     var a = this;
-    console.log(this.name);
-    console.log(event);
+    // console.log(this.name);
+    // console.log(event);
     var doc = {}
     doc.message = (this.name + " got damaged: " + this.reports);
     Meteor.call("sendMessage", doc);
     Meteor.call("sendDamageEmail", a);
     Bert.alert('Reported!','success', 'growl-top-right');
     
-    console.log(doc.message);
+    // console.log(doc.message);
     // Meteor.call("sessionStart",this._id);
+  },
+
+  "click .trainings":function(event) {
+    $('.collapsible').collapsible();
   }
 });
 
@@ -52,6 +56,7 @@ Template.ongoingSessions.onCreated(function() {
   self.opt = new ReactiveVar([0,100]);
   self.autorun(function(){
     self.subscribe('events', self.opt.get()[0], self.opt.get()[1], 'ongoing');
+    $('.collapsible').collapsible();
   });
 });
 
@@ -81,7 +86,7 @@ Template.doneSessions.events({
       // opt[1] -=10;
     
       template.opt.set(opt);
-      console.log(template.opt.get());
+      // console.log(template.opt.get());
     };
   },
   'click .events-next': function(event, template){
@@ -91,9 +96,12 @@ Template.doneSessions.events({
       // opt[1] +=10;
       
       template.opt.set(opt);
-      console.log(template.opt.get());
+      // console.log(template.opt.get());
     };
   },
+  "click .trainings":function(event) {
+    $('.collapsible').collapsible();
+  }
   
 });
 
@@ -118,7 +126,7 @@ Template.boathouseView.onRendered(function(){
       if (this.subscriptionsReady()) {
         Tracker.afterFlush(() => {
         $('.collapsible').collapsible();
-        console.log("Collapsible ON!");
+        // console.log("Collapsible ON!");
         $('.dropdown-button').dropdown({
              inDuration: 300,
              outDuration: 225,
@@ -183,8 +191,8 @@ AutoForm.hooks({
 	        $('#newSession select')[3].selectize.clear()
           import { Random } from 'meteor/random';
           text = '<center><h5>'+ Random.choice(quotes) + '</h5></center>';
-          console.log(quotes[3]);
-          console.log(text);
+          // console.log(quotes[3]);
+          // console.log(text);
           Bert.alert(text);
 	    }
 	},

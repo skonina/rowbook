@@ -89,34 +89,24 @@ UI.registerHelper("parseBoatNames", function (boatIDs){
 
 UI.registerHelper("boatsCondition", function (){
   return Boats.findOne(this.boatID[0]).reports;
-  console.log("!!!");
-  console.log(this);
-  console.log(event);
 }),
 UI.registerHelper("boat", function (){
   return Boats.findOne(this.boatID[0]);
-  console.log("!!!");
-  console.log(this);
-  console.log(event);
 }),
 
 UI.registerHelper("boats_trained", function (c){
   var a = [] ;
-console.log('!');
-  console.log(this);
-  console.log(this.boatID);
+// console.log('!');
+//   console.log(this);
+//   console.log(this.boatID);
 
   _.each(c, function(q){
     a.push(Boats.findOne(q));
-    console.log(q);
-    console.log(Boats.findOne());
+    // console.log(q);
+    // console.log(Boats.findOne());
   }); 
-  console.log(a);
+  // console.log(a);
   return a;
-  // return Boats.findOne(this.boatID[0]);
-  console.log("!!!");
-  console.log(this);
-  console.log(event);
 }),
 
 
@@ -183,7 +173,7 @@ UI.registerHelper("hourFormat", function(a) {
 
 
 UI.registerHelper("chosenEvents", function() {
-    console.log('chosenEvents ' +this);
+    // console.log('chosenEvents ' +this);
     var q = [];
     _.each(this.events, function (a){
       q.push(EventList.findOne(a));
